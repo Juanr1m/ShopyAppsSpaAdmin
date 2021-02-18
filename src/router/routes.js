@@ -80,6 +80,27 @@ export default [
     },
   },
   {
+    path: '/orders',
+    name: 'orders',
+    component: () => lazyLoadView(import('@views/orders.vue')),
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: () => lazyLoadView(import('@views/account.vue')),
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => lazyLoadView(import('@views/settings.vue')),
+  },
+  {
+    path: '/publication',
+    name: 'publication',
+    component: () => lazyLoadView(import('@views/publication.vue')),
+  },
+
+  {
     path: '/404',
     name: '404',
     component: require('@views/_404.vue').default,

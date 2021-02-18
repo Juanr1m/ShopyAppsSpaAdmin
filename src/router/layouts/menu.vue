@@ -12,44 +12,44 @@
         </a></li
       >
       <li
-        ><a href="#!">
+        ><RouterLink to="/">
           <div class="menu_item_icn">
             <img src="@assets/Buy.svg" alt="" />
           </div>
           <div class="menu_item_txt">
             Товары
-          </div></a
+          </div></RouterLink
         ></li
       >
       <li
-        ><a href="#!">
+        ><RouterLink to="/orders">
           <div class="menu_item_icn">
             <img src="@assets/Bag.svg" alt="" />
           </div>
           <div class="menu_item_txt">
             Заказы
-          </div></a
+          </div></RouterLink
         ></li
       >
       <li
-        ><a href="#!">
+        ><RouterLink to="/publication">
           <div class="menu_item_icn">
             <img src="@assets/Upload.svg" alt="" />
           </div>
           <div class="menu_item_txt">
             Публикация
-          </div></a
+          </div></RouterLink
         ></li
       >
     </ul>
-    <a href="#!" class="settings">
+    <RouterLink to="/settings" class="settings">
       <div class="menu_item_icon">
         <img src="@assets/Filter Icon.svg" alt="" />
       </div>
       <div class="menu_item_txt">
         Настройки
       </div>
-    </a>
+    </RouterLink>
   </div>
 </template>
 

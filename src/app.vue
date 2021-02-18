@@ -105,7 +105,7 @@ button {
 .screen {
   height: 100vh;
   max-height: 100%;
-  padding-top: 40px;
+  padding-top: 80px;
 }
 
 // ===

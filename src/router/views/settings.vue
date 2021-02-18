@@ -1,14 +1,14 @@
 <script>
 import appConfig from '@src/app.config'
+// import axios from 'axios'
 import Menu from '@layouts/menu.vue'
 import Header from '@layouts/header.vue'
-import ProductsPage from '@views/products.vue'
 export default {
   page: {
-    title: 'Home',
+    title: 'Settings',
     meta: [{ name: 'description', content: appConfig.description }],
   },
-  components: { Menu, Header, ProductsPage },
+  components: { Header, Menu },
 }
 </script>
 
@@ -18,16 +18,13 @@ export default {
       <Header></Header>
       <div class="row">
         <Menu></Menu>
-        <ProductsPage></ProductsPage>
+        <div class="col-10 main_screen">
+          <div class="main_screen_title">
+            Настройки
+          </div>
+          <div class="row"> </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
-<style lang="scss">
-@import '@design';
-
-.row > * {
-  width: 100%;
-}
-</style>
