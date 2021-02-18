@@ -98,6 +98,16 @@ button {
   border: none;
   outline: none;
 }
+
+.wrapper {
+  overflow-x: hidden;
+}
+.screen {
+  height: 100vh;
+  max-height: 100%;
+  padding-top: 40px;
+}
+
 // ===
 // Vendor
 // ===

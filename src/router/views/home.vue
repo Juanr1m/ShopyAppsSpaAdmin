@@ -2,12 +2,14 @@
 import appConfig from '@src/app.config'
 import Layout from '@layouts/main.vue'
 import axios from 'axios'
+import Menu from '@layouts/menu.vue'
+import Header from '@layouts/header.vue'
 export default {
   page: {
     title: 'Home',
     meta: [{ name: 'description', content: appConfig.description }],
   },
-  components: { Layout },
+  components: { Layout, Menu, Header },
   data() {
     return {
       categories: null,
@@ -54,87 +56,9 @@ export default {
   <Layout>
     <div class="wrapper">
       <div class="screen">
-        <div class="header_bar col-12">
-          <div class="header_bar_left">
-            <div class="logo">
-              <img src="@assets/Sh..svg" alt="" />
-            </div>
-            <div class="header_search">
-              <div class="search_input">
-                <input type="text" placeholder="Поиск" />
-                <div class="search_icn"
-                  ><img src="@assets/search-24px.svg" alt=""
-                /></div>
-              </div>
-            </div>
-          </div>
-          <div class="header_bar_right">
-            <button class="notify_btn">
-              <img src="@assets/notification on.svg" alt="" />
-            </button>
-            <a href="#!" class="btn_profile">
-              <div class="profile_icn">
-                <img src="@assets/Profile.svg" alt="" />
-              </div>
-              <div class="profile_txt">
-                Профиль
-              </div>
-            </a>
-          </div>
-        </div>
+        <Header></Header>
         <div class="row">
-          <div class="col-2 menu">
-            <ul>
-              <li
-                ><a href="#!">
-                  <div class="menu_item_icn">
-                    <img src="@assets/Activity.svg" alt="" />
-                  </div>
-                  <div class="menu_item_txt">
-                    Обзор
-                  </div>
-                </a></li
-              >
-              <li
-                ><a href="#!">
-                  <div class="menu_item_icn">
-                    <img src="@assets/Buy.svg" alt="" />
-                  </div>
-                  <div class="menu_item_txt">
-                    Товары
-                  </div></a
-                ></li
-              >
-              <li
-                ><a href="#!">
-                  <div class="menu_item_icn">
-                    <img src="@assets/Bag.svg" alt="" />
-                  </div>
-                  <div class="menu_item_txt">
-                    Заказы
-                  </div></a
-                ></li
-              >
-              <li
-                ><a href="#!">
-                  <div class="menu_item_icn">
-                    <img src="@assets/Upload.svg" alt="" />
-                  </div>
-                  <div class="menu_item_txt">
-                    Публикация
-                  </div></a
-                ></li
-              >
-            </ul>
-            <a href="#!" class="settings">
-              <div class="menu_item_icon">
-                <img src="@assets/Filter Icon.svg" alt="" />
-              </div>
-              <div class="menu_item_txt">
-                Настройки
-              </div>
-            </a>
-          </div>
+          <Menu></Menu>
           <div class="col-10 main_screen">
             <div class="main_screen_title">
               Товары
@@ -248,11 +172,7 @@ export default {
 
 <style lang="scss">
 @import '@design';
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-.logo {
-  width: 80px;
-  padding: 10px;
-}
+
 .wrapper {
   overflow-x: hidden;
 }
@@ -261,30 +181,7 @@ export default {
   max-height: 100%;
   padding-top: 40px;
 }
-.menu {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-top: 50px;
-  padding-bottom: 20px;
-  background-color: #0043a4;
-  border-radius: 0 15px 15px 0;
-}
-.menu ul li a {
-  display: block;
-  display: flex;
-  align-items: center;
-  padding: 15px 30px;
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: white;
-}
-.menu_item_icn {
-  margin-right: 10px;
-}
-.menu ul li a:hover {
-  background-color: #1069eb;
-}
+
 .main_screen {
   padding: 50px;
   padding-top: 40px;
@@ -337,92 +234,6 @@ export default {
 .add_btn:hover {
   color: white;
   background-color: #153769;
-}
-.header_bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 70px;
-  padding-top: 10px;
-  padding-right: 50px;
-  padding-bottom: 10px;
-  padding-left: 20px;
-  background-color: #edf2f6;
-}
-.header_bar_left {
-  display: flex;
-  align-items: center;
-}
-.header_search {
-  margin-left: 260px;
-}
-.search_input {
-  position: relative;
-  width: 300px;
-  height: 40px;
-}
-.search_input input {
-  display: block;
-  width: 100%;
-  padding-right: 30px;
-  padding-left: 16px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 40px;
-  color: #000;
-  background-color: white;
-  border: none;
-  border-radius: 20px;
-  outline: none;
-}
-.search_icn {
-  position: absolute;
-  top: 23%;
-  right: 5%;
-}
-.notify_btn {
-  padding: 10px;
-  background-color: white;
-  border-radius: 50%;
-  box-shadow: rgb(0 0 0 / 10%) 0 10px 15px -3px;
-}
-.btn_profile {
-  display: flex;
-  align-items: center;
-  padding: 6px 16px;
-  margin-left: 20px;
-  color: black;
-  background-color: white;
-  border-radius: 30px;
-  box-shadow: rgb(0 0 0 / 10%) 0 10px 15px -3px;
-}
-.profile_icn {
-  margin-right: 5px;
-}
-
-.settings {
-  display: block;
-  display: flex;
-  align-items: center;
-  padding: 15px 30px;
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: white;
-}
-.settings:hover {
-  color: white;
-  background-color: #1069eb;
-}
-.menu_item_icon {
-  margin-right: 10px;
-}
-.header_bar_right {
-  display: flex;
-  align-items: center;
 }
 
 .item_wrap {
