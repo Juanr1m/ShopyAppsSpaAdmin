@@ -99,6 +99,11 @@ export default [
     name: 'publication',
     component: () => lazyLoadView(import('@views/publication.vue')),
   },
+  {
+    path: '/review',
+    name: 'review',
+    component: () => lazyLoadView(import('@views/review.vue')),
+  },
 
   {
     path: '/404',

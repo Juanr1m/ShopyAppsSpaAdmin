@@ -16,7 +16,7 @@ export default {
   <div class="wrapper">
     <div class="screen">
       <Header></Header>
-      <div class="row">
+      <div class="row height_wrap">
         <Menu></Menu>
         <ProductsPage></ProductsPage>
       </div>

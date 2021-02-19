@@ -107,7 +107,20 @@ button {
   max-height: 100%;
   padding-top: 80px;
 }
-
+.main_screen {
+  padding: 50px;
+  padding-top: 40px;
+}
+.main_screen_title {
+  padding-bottom: 15px;
+  font-size: 26px;
+  font-weight: 400;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+.height_wrap {
+  align-items: flex-start;
+  height: 100%;
+}
 // ===
 // Vendor
 // ===

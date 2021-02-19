@@ -2,14 +2,14 @@
   <div class="col-2 menu">
     <ul>
       <li
-        ><a href="#!">
+        ><RouterLink to="/review">
           <div class="menu_item_icn">
             <img src="@assets/Activity.svg" alt="" />
           </div>
           <div class="menu_item_txt">
             Обзор
           </div>
-        </a></li
+        </RouterLink></li
       >
       <li
         ><RouterLink to="/">
@@ -60,6 +60,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
   padding-top: 50px;
   padding-bottom: 20px;
   background-color: #0043a4;

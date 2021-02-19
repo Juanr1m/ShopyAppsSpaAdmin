@@ -48,7 +48,7 @@ export default {
     <div class="main_screen_title">
       Товары
     </div>
-    <div class="row">
+    <div class="row height_wrap">
       <nav class="tab_bar tabs_bar">
         <div id="nav-tab" class="nav nav-tabs" role="tablist">
           <button
@@ -144,16 +144,6 @@ export default {
 <style lang="scss">
 @import '@design';
 
-.main_screen {
-  padding: 50px;
-  padding-top: 40px;
-}
-.main_screen_title {
-  padding-bottom: 15px;
-  font-size: 26px;
-  font-weight: 400;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
 .tabs_product {
   padding-bottom: 28px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);

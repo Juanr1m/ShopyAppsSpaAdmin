@@ -5,7 +5,7 @@ import Menu from '@layouts/menu.vue'
 import Header from '@layouts/header.vue'
 export default {
   page: {
-    title: 'Orders',
+    title: 'Review',
     meta: [{ name: 'description', content: appConfig.description }],
   },
   components: { Header, Menu },
@@ -20,7 +20,7 @@ export default {
         <Menu></Menu>
         <div class="col-10 main_screen">
           <div class="main_screen_title">
-            Заказы
+            Обзор
           </div>
           <div class="row"> </div>
         </div>
