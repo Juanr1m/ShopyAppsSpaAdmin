@@ -121,6 +121,12 @@ button {
   align-items: flex-start;
   height: 100%;
 }
+.row {
+  margin: 0;
+}
+.row > * {
+  width: 100%;
+}
 // ===
 // Vendor
 // ===

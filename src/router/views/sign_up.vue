@@ -3,7 +3,7 @@ import appConfig from '@src/app.config'
 
 export default {
   page: {
-    title: 'Log in',
+    title: 'Sign up',
     meta: [{ name: 'description', content: `Log in to ${appConfig.title}` }],
   },
 }
@@ -19,18 +19,25 @@ export default {
     </a>
     <div class="form_box">
       <div class="form_box_titles">
-        <div class="form_box_titles_text">Ваш мобильный магазин</div>
+        <div class="form_box_titles_text">Создай свой мобильный магазин</div>
         <div class="signup_btn">
-          <RouterLink to="/signup" class="sign_up_txt"
-            >Зарегистрироваться</RouterLink
-          >
+          <RouterLink to="/login" class="sign_up_txt"
+            >Есть аккаунт? Войти
+          </RouterLink>
           <div class="sign_up_icn">
             <img src="@assets/keyboard_arrow_right-24px.svg" />
           </div>
         </div>
       </div>
-      <form action="http://127.0.0.1:8000/api/users/auth/login/" method="POST">
-        <input type="hidden" name="username" value="admin" />
+      <form action="http://127.0.0.1:8000/api/users/" method="POST">
+        <div class="form_item">
+          <input type="hidden" name="is_superuser" value="false" />
+          <input type="hidden" name="username" value="user" />
+          <div class="form_item_title">
+            Имя
+          </div>
+          <input required type="text" placeholder="Как вас зовут?" />
+        </div>
         <div class="form_item">
           <div class="form_item_title">
             Email
@@ -53,17 +60,13 @@ export default {
             placeholder="Введите пароль"
           />
         </div>
-        <RouterLink to="/forget-password" class="forgot_password_link"
-          >Забыли пароль?</RouterLink
-        >
-        <button type="submit" class="login_btn">Войти</button>
+        <button type="submit" class="login_btn">Зарегистрироваться</button>
       </form>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
 @import '@design';
 .form_box input {
   padding: 0;
@@ -113,6 +116,7 @@ export default {
   width: 100%;
   height: 24px;
   margin: 0 0 16px 0;
+  font-family: 'Roboto', sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }

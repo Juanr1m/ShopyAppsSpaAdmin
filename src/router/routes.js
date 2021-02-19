@@ -24,6 +24,16 @@ export default [
     },
   },
   {
+    path: '/forget-password',
+    name: 'forget-password',
+    component: () => lazyLoadView(import('@views/forget_password.vue')),
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => lazyLoadView(import('@views/sign_up.vue')),
+  },
+  {
     path: '/profile',
     name: 'profile',
     component: () => lazyLoadView(import('@views/profile.vue')),

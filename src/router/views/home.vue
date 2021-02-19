@@ -26,8 +26,4 @@ export default {
 
 <style lang="scss">
 @import '@design';
-
-.row > * {
-  width: 100%;
-}
 </style>
