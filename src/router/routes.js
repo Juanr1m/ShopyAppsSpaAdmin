@@ -114,6 +114,16 @@ export default [
     name: 'review',
     component: () => lazyLoadView(import('@views/review.vue')),
   },
+  {
+    path: '/add-product',
+    name: 'add-product',
+    component: () => lazyLoadView(import('@views/add_new_product.vue')),
+  },
+  {
+    path: '/add-category',
+    name: 'add-category',
+    component: () => lazyLoadView(import('@views/add_new_category.vue')),
+  },
 
   {
     path: '/404',

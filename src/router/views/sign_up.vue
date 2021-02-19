@@ -67,6 +67,7 @@ export default {
 </template>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
 @import '@design';
 .form_box input {
   padding: 0;

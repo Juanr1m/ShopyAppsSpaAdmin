@@ -79,8 +79,12 @@ export default {
           >
         </div>
         <div class="btn_button_list">
-          <button class="btn add_btn" type="submit">+ Новый товар</button>
-          <button class="btn add_btn" type="submit">+ Новая категория</button>
+          <RouterLink class="btn add_btn" to="/add-product"
+            >+ Новый товар</RouterLink
+          >
+          <RouterLink class="btn add_btn" to="/add-category"
+            >+ Новая категория</RouterLink
+          >
         </div>
       </nav>
       <div id="nav-tabContent" class="tab-content">
@@ -192,7 +196,6 @@ export default {
   display: flex;
   align-items: center;
   padding: 12px;
-  margin-bottom: 5px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 .item_wrap:hover {

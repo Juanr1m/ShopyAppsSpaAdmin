@@ -11,6 +11,6 @@ $color-link-text-active: $color-text;
 $color-input-border: lighten($color-heading-text, 50%);
 
 // BUTTONS
-$color-button-bg: $color-link-text;
+$color-button-bg: transparent;
 $color-button-disabled-bg: darken(desaturate($color-button-bg, 20%), 10%);
 $color-button-text: white;

@@ -1,9 +1,12 @@
 <template>
   <div class="header_bar col-12">
     <div class="header_bar_left">
-      <div class="logo">
-        <img src="@assets/Sh..svg" alt="" />
+      <div class="logo_wrap col-2">
+        <div class="logo">
+          <img src="@assets/Sh..svg" alt="" />
+        </div>
       </div>
+
       <div class="header_search">
         <div class="search_input">
           <input type="text" placeholder="Поиск" />
@@ -53,9 +56,10 @@
 .header_bar_left {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 .header_search {
-  margin-left: 260px;
+  margin-left: 25px;
 }
 .search_input {
   position: relative;
@@ -82,7 +86,8 @@
   right: 5%;
 }
 .notify_btn {
-  padding: 10px;
+  width: 40px;
+  padding: 8px;
   background-color: white;
   border-radius: 50%;
   box-shadow: rgb(0 0 0 / 10%) 0 10px 15px -3px;
@@ -98,6 +103,7 @@
   box-shadow: rgb(0 0 0 / 10%) 0 10px 15px -3px;
 }
 .profile_icn {
+  width: 25px;
   margin-right: 5px;
 }
 .header_bar_right {
