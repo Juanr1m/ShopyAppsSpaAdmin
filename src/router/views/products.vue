@@ -3,16 +3,14 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      categories: null,
-      products: null,
+      data: null,
 
       isActiveProduct: true,
       isActiveCategory: false,
     }
   },
   created() {
-    this.getCategories()
-    this.getProducts()
+    this.getData()
   },
   methods: {
     toggleProduct: function() {
@@ -27,16 +25,10 @@ export default {
         this.isActiveCategory = true
       }
     },
-    getCategories() {
+    getData() {
       axios
-        .get('http://127.0.0.1:8000/api/categories/')
-        .then((response) => (this.categories = response.data))
-        .catch((error) => console.log(error))
-    },
-    getProducts() {
-      axios
-        .get('http://127.0.0.1:8000/api/products/')
-        .then((response) => (this.products = response.data))
+        .get('http://127.0.0.1:8000/api/users/1/')
+        .then((response) => (this.data = response.data))
         .catch((error) => console.log(error))
     },
   },
@@ -102,7 +94,7 @@ export default {
             <div class="span">Цена</div>
           </div>
           <div
-            v-for="product in products"
+            v-for="product in data.products"
             :key="product.title"
             class="item_block"
           >
@@ -129,7 +121,7 @@ export default {
             <div class="span col-2">Товары</div>
           </div>
           <div
-            v-for="category in categories"
+            v-for="category in data.categories"
             :key="category.title"
             class="item_block"
           >

@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export const state = {
   currentUser: getSavedState('auth.currentUser'),
+  // currentUserId: getSavedState('auth.currentUserId'),
 }
 
 export const mutations = {
@@ -10,6 +11,10 @@ export const mutations = {
     saveState('auth.currentUser', newValue)
     setDefaultAuthHeaders(state)
   },
+  // SET_CURRENT_USER_ID(state, newValue) {
+  //   state.userId = newValue
+  //   saveState('auth.currentUserId', newValue)
+  // },
 }
 
 export const getters = {
@@ -37,10 +42,23 @@ export const actions = {
         password,
       })
       .then((response) => {
-        const user = response.data
-        commit('SET_CURRENT_USER', user)
-        return user
+        const token = response.data.auth_token
+        commit('SET_CURRENT_USER', token)
+        return token
       })
+    // .then(
+    //   axios
+    //     .get(
+    //       'http://127.0.0.1:8000/api/users/auth/users/me/' +
+    //         '?access_token=' +
+    //         state.currentUser.token
+    //     )
+    //     .then((response) => {
+    //       const userId = response.data.id
+    //       commit('SET_CURRENT_USER_ID', userId)
+    //       return userId
+    //     })
+    // )
   },
 
   // Logs out the current user.
