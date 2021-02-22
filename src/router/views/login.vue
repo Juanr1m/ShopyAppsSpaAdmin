@@ -1,17 +1,49 @@
 <script>
 import appConfig from '@src/app.config'
+import { authMethods } from '@state/helpers'
 
 export default {
   page: {
     title: 'Log in',
     meta: [{ name: 'description', content: `Log in to ${appConfig.title}` }],
   },
+  data() {
+    return {
+      email: '',
+      password: '',
+      authError: null,
+      tryingToLogIn: false,
+    }
+  },
+  methods: {
+    ...authMethods,
+    // Try to log the user in with the username
+    // and password they provided.
+    tryToLogIn() {
+      this.tryingToLogIn = true
+      // Reset the authError if it existed.
+      this.authError = null
+      return this.logIn({
+        email: this.email,
+        password: this.password,
+      })
+        .then((token) => {
+          this.tryingToLogIn = false
+          // Redirect to the originally requested page, or to the home page
+          this.$router.push(this.$route.query.redirectFrom || { name: 'home' })
+        })
+        .catch((error) => {
+          this.tryingToLogIn = false
+          this.authError = error
+        })
+    },
+  },
 }
 </script>
 
 <template>
-  <div class="wrapper">
-    <a class="logo" href="/">
+  <div class="wrapper_login">
+    <a class="logo_login" href="/">
       <img
         src="https://uploads.quarkly.io/5fca1c30f8ae59001fb0c043/images/ShopyApps..png?v=2020-12-11T10:59:29.018Z"
         alt=""
@@ -29,15 +61,13 @@ export default {
           </div>
         </div>
       </div>
-      <form
-        action="http://127.0.0.1:8000/api/users/auth/token/login/"
-        method="POST"
-      >
+      <form @submit.prevent="tryToLogIn">
         <div class="form_item">
           <div class="form_item_title">
             Email
           </div>
-          <input
+          <BaseInputText
+            v-model="email"
             name="email"
             required
             type="email"
@@ -48,7 +78,8 @@ export default {
           <div class="form_item_title">
             Пароль
           </div>
-          <input
+          <BaseInputText
+            v-model="password"
             name="password"
             required
             type="password"
@@ -58,7 +89,9 @@ export default {
         <RouterLink to="/forget-password" class="forgot_password_link"
           >Забыли пароль?</RouterLink
         >
-        <button type="submit" class="login_btn">Войти</button>
+        <BaseButton :disabled="tryingToLogIn" type="submit" class="login_btn"
+          >Войти</BaseButton
+        >
       </form>
     </div>
   </div>
@@ -73,7 +106,7 @@ export default {
   outline: none;
 }
 
-.wrapper {
+.wrapper_login {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,7 +120,7 @@ export default {
   border-radius: 8px;
   box-shadow: 0 8px 32px rgb(18 16 37 / 7%);
 }
-.logo {
+.logo_login {
   display: block;
   width: 150px;
   margin: 45px 0 40px 0;

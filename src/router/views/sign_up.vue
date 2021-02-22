@@ -10,8 +10,8 @@ export default {
 </script>
 
 <template>
-  <div class="wrapper">
-    <a class="logo" href="/">
+  <div class="wrapper_login">
+    <a class="logo_login" href="/">
       <img
         src="https://uploads.quarkly.io/5fca1c30f8ae59001fb0c043/images/ShopyApps..png?v=2020-12-11T10:59:29.018Z"
         alt=""
@@ -30,14 +30,14 @@ export default {
         </div>
       </div>
       <form action="http://127.0.0.1:8000/api/users/" method="POST">
-        <div class="form_item">
-          <input type="hidden" name="is_superuser" value="false" />
-          <input type="hidden" name="username" value="user" />
+        <input type="hidden" name="is_superuser" value="false" />
+        <input type="hidden" name="username" value="user" />
+        <!-- <div class="form_item">
           <div class="form_item_title">
             Имя
           </div>
           <input required type="text" placeholder="Как вас зовут?" />
-        </div>
+        </div>` -->
         <div class="form_item">
           <div class="form_item_title">
             Email
@@ -75,7 +75,7 @@ export default {
   outline: none;
 }
 
-.wrapper {
+.wrapper_login {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,7 +89,7 @@ export default {
   border-radius: 8px;
   box-shadow: 0 8px 32px rgb(18 16 37 / 7%);
 }
-.logo {
+.logo_login {
   display: block;
   width: 150px;
   margin: 45px 0 40px 0;

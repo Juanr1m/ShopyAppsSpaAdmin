@@ -28,11 +28,14 @@ export const actions = {
   },
 
   // Logs in the current user.
-  logIn({ commit, dispatch, getters }, { username, password } = {}) {
+  logIn({ commit, dispatch, getters }, { email, password } = {}) {
     if (getters.loggedIn) return dispatch('validate')
 
     return axios
-      .post('/api/session', { username, password })
+      .post('http://127.0.0.1:8000/api/users/auth/token/login/', {
+        email,
+        password,
+      })
       .then((response) => {
         const user = response.data
         commit('SET_CURRENT_USER', user)

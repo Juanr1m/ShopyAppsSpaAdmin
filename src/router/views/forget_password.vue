@@ -10,8 +10,8 @@ export default {
 </script>
 
 <template>
-  <div class="wrapper">
-    <a class="logo" href="/">
+  <div class="wrapper_login">
+    <a class="logo_login" href="/">
       <img
         src="https://uploads.quarkly.io/5fca1c30f8ae59001fb0c043/images/ShopyApps..png?v=2020-12-11T10:59:29.018Z"
         alt=""
@@ -46,7 +46,7 @@ export default {
   outline: none;
 }
 
-.wrapper {
+.wrapper_login {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,7 +60,7 @@ export default {
   border-radius: 8px;
   box-shadow: 0 8px 32px rgb(18 16 37 / 7%);
 }
-.logo {
+.logo_login {
   display: block;
   width: 150px;
   margin: 45px 0 40px 0;
