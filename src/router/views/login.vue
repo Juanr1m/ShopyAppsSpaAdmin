@@ -29,8 +29,10 @@ export default {
           </div>
         </div>
       </div>
-      <form action="http://127.0.0.1:8000/api/users/auth/login/" method="POST">
-        <input type="hidden" name="username" value="admin" />
+      <form
+        action="http://127.0.0.1:8000/api/users/auth/token/login/"
+        method="POST"
+      >
         <div class="form_item">
           <div class="form_item_title">
             Email
