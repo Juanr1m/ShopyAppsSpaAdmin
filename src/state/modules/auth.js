@@ -37,7 +37,7 @@ export const actions = {
     if (getters.loggedIn) return dispatch('validate')
 
     return axios
-      .post('http://127.0.0.1:8000/api/users/auth/token/login/', {
+      .post('http://127.0.0.1:8000/api/users/auth/jwt/create/', {
         email,
         password,
       })

@@ -28,7 +28,12 @@ export default {
           <div class="main_screen_title">
             Добавить новую категорию
           </div>
-          <div class="row"> </div>
+          <div class="row">
+            <form>
+              <input type="text" name="" />
+              <input type="file" name="image" />
+            </form>
+          </div>
         </div>
       </div>
     </div>
