@@ -42,7 +42,7 @@ export const actions = {
         password,
       })
       .then((response) => {
-        const token = response.data.auth_token
+        const token = response.data.refresh
         commit('SET_CURRENT_USER', token)
         return token
       })
