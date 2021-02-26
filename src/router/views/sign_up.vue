@@ -135,7 +135,7 @@ export default {
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
   color: #f7fbff;
-  background: #0043a4;
+  background: #0057d6;
   border-radius: 8px;
 }
 .signup_btn {
@@ -145,7 +145,7 @@ export default {
 .sign_up_txt {
   font-family: 'Roboto', sans-serif;
   font-size: 13px;
-  color: #0043a4;
+  color: #0057d6;
 }
 
 .form_box_titles_text {

@@ -2,12 +2,12 @@ import store from '@state/store'
 
 export default [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
     component: () => lazyLoadView(import('@views/home.vue')),
   },
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: () => lazyLoadView(import('@views/login.vue')),
     meta: {

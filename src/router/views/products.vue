@@ -29,7 +29,6 @@ export default {
       axios
         .get('http://127.0.0.1:8000/api/users/1/')
         .then((response) => (this.data = response.data))
-        .catch((error) => console.log(error))
     },
   },
 }
@@ -156,7 +155,7 @@ export default {
   color: black;
   background-color: transparent;
   border-color: transparent;
-  border-bottom: 2px solid #0043a4;
+  border-bottom: 2px solid #0057d6;
 }
 
 .tab_products {
@@ -176,7 +175,7 @@ export default {
   padding: 8px 16px;
   margin-left: 20px;
   color: white;
-  background-color: #0043a4;
+  background-color: #0057d6;
   border-radius: 20px;
 }
 .add_btn:hover {

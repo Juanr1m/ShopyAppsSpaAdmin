@@ -63,7 +63,7 @@
   height: 100%;
   padding-top: 50px;
   padding-bottom: 20px;
-  background-color: #0043a4;
+  background-color: #0057d6;
   border-radius: 0 15px 15px 0;
 }
 .menu ul li a {
