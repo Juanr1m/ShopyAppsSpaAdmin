@@ -100,7 +100,7 @@ button {
 }
 
 .wrapper {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 .screen {
   height: 100vh;
@@ -126,6 +126,20 @@ button {
 }
 .row > * {
   width: 100%;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dee3e8;
+  border-radius: 5px;
 }
 // ===
 // Vendor

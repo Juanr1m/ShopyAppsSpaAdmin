@@ -208,11 +208,31 @@ export default {
   display: flex;
   padding-left: 12px;
   margin-top: 10px;
+  margin-bottom: 10px;
   font-weight: 600;
 }
 .space {
   width: 50px;
-  height: 50px;
   margin-right: 10px;
+}
+.tab-pane {
+  height: 65vh;
+  overflow-y: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #dee3e8;
+  border-radius: 5px;
 }
 </style>
