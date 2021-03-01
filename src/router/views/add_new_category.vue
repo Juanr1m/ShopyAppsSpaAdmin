@@ -19,7 +19,7 @@ export default {
       <div class="row height_wrap">
         <Menu></Menu>
         <div class="col-10 main_screen pt">
-          <RouterLink class="back_btn" to="/">
+          <RouterLink class="back_btn" to="/home">
             <div class="back_btn_icn"
               ><img src="@assets/keyboard_arrow_left-24px.svg" alt=""
             /></div>

@@ -72,6 +72,8 @@
   align-items: center;
   padding: 15px 30px;
   margin-bottom: 10px;
+}
+.menu_item_txt {
   font-size: 18px;
   color: white;
 }
