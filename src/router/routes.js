@@ -124,6 +124,18 @@ export default [
     name: 'add-category',
     component: () => lazyLoadView(import('@views/add_new_category.vue')),
   },
+  {
+    path: '/product/:endpoint',
+    name: 'product-details',
+    component: () => lazyLoadView(import('@views/product_details.vue')),
+    props: true,
+  },
+  {
+    path: '/category/:endpoint',
+    name: 'category-details',
+    component: () => lazyLoadView(import('@views/category_details.vue')),
+    props: true,
+  },
 
   {
     path: '/404',

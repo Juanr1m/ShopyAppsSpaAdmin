@@ -92,10 +92,11 @@ export default {
             <div class="span col-2">Категория</div>
             <div class="span">Цена</div>
           </div>
-          <div
+          <RouterLink
             v-for="product in data.products"
             :key="product.title"
             class="item_block"
+            :to="{ name: 'product-details', params: { endpoint: product.url } }"
           >
             <div class="item_wrap">
               <div class="item_img"
@@ -105,7 +106,7 @@ export default {
               <div class="item_category col-2">{{ product.category }}</div>
               <div class="item_price">{{ product.price }} руб.</div>
             </div>
-          </div>
+          </RouterLink>
         </div>
         <div
           id="nav-profile"
@@ -119,17 +120,21 @@ export default {
             <div class="span col-3">Название</div>
             <div class="span col-2">Товары</div>
           </div>
-          <div
+          <RouterLink
             v-for="category in data.categories"
             :key="category.title"
             class="item_block"
+            :to="{
+              name: 'category-details',
+              params: { endpoint: category.url },
+            }"
           >
             <div class="item_wrap">
               <div class="item_img"><img :src="category.image_small"/></div>
               <div class="item_title col-3">{{ category.title }}</div>
               <div class="item_count">{{ category.products.length }} шт.</div>
             </div>
-          </div>
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -218,21 +223,5 @@ export default {
 .tab-pane {
   height: 65vh;
   overflow-y: auto;
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #dee3e8;
-  border-radius: 5px;
 }
 </style>
