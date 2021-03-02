@@ -3,8 +3,8 @@ import appConfig from '@src/app.config'
 import Menu from '@layouts/menu.vue'
 import Header from '@layouts/header.vue'
 import ProductsPage from '@views/products.vue'
-import axios from 'axios'
-import store from '@/src/state/store'
+
+import jwtDecode from 'jwt-decode'
 export default {
   page: {
     title: 'Home',
@@ -21,14 +21,16 @@ export default {
   },
   methods: {
     getUserId() {
-      axios
-        .get('http://127.0.0.1:8000/api/users/auth/users/me/', {
-          headers: {
-            Authorization: `Token ${store.state.auth.currentUser}`,
-          },
-        })
-        .then((response) => (this.id = response.data))
-        .catch((error) => console.log(error))
+      const token = localStorage.getItem('token')
+      try {
+        //  decode token here and attach to the user object
+        const decoded = jwtDecode(token)
+        this.id = decoded.user_id
+        localStorage.setItem('user_id', this.id)
+      } catch (error) {
+        // return error in production env
+        console.log(error, 'error from decoding token')
+      }
     },
   },
 }
@@ -39,7 +41,7 @@ export default {
     <div class="screen">
       <Header></Header>
       <div class="row height_wrap">
-        <Menu></Menu>
+        <Menu> </Menu>
         <ProductsPage></ProductsPage>
       </div>
     </div>
