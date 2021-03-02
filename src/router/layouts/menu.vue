@@ -12,7 +12,7 @@
         </RouterLink></li
       >
       <li
-        ><RouterLink to="/">
+        ><RouterLink to="/home">
           <div class="menu_item_icn">
             <img src="@assets/Buy.svg" alt="" />
           </div>
