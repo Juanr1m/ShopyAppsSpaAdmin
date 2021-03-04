@@ -1,6 +1,6 @@
 <script>
 import appConfig from '@src/app.config'
-// import axios from 'axios'
+import axios from 'axios'
 import Menu from '@layouts/menu.vue'
 import Header from '@layouts/header.vue'
 export default {
@@ -9,6 +9,31 @@ export default {
     meta: [{ name: 'description', content: appConfig.description }],
   },
   components: { Header, Menu },
+  data() {
+    return {
+      title: '',
+      image: '',
+    }
+  },
+  methods: {
+    handleFileUpload() {
+      this.image = this.$refs.file.files[0]
+    },
+    addNewCategory() {
+      const token = localStorage.getItem('token')
+      const formData = new FormData()
+      formData.append('image', this.image)
+      formData.append('title', this.title)
+
+      axios
+        .post('http://127.0.0.1:8000/api/categories/', formData, {
+          headers: {
+            Authorization: 'Token' + token,
+          },
+        })
+        .catch((error) => console.warn(error))
+    },
+  },
 }
 </script>
 
@@ -28,10 +53,23 @@ export default {
           <div class="main_screen_title">
             Добавить новую категорию
           </div>
-          <div class="row">
-            <form>
-              <input type="text" name="" />
-              <input type="file" name="image" />
+          <div class="row scroll">
+            <form @submit.prevent="addNewCategory">
+              <BaseInputText
+                v-model="title"
+                name="title"
+                required
+                type="text"
+              />
+
+              <input
+                id="file"
+                ref="file"
+                type="file"
+                @change="handleFileUpload"
+              />
+
+              <button type="submit">Добавить</button>
             </form>
           </div>
         </div>
@@ -42,6 +80,9 @@ export default {
 
 <style lang="scss">
 @import '@design';
+.scroll {
+  overflow: scroll;
+}
 .pt {
   padding-top: 20px;
 }

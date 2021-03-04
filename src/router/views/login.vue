@@ -27,9 +27,9 @@ export default {
         email: this.email,
         password: this.password,
       })
-        .then((token) => {
+        .then((response) => {
           this.tryingToLogIn = false
-          localStorage.setItem('token', token)
+          localStorage.setItem('login_data', response)
           // Redirect to the originally requested page, or to the home page
           this.$router.push(this.$route.query.redirectFrom || { name: 'home' })
         })
