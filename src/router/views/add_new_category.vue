@@ -13,6 +13,7 @@ export default {
     return {
       title: '',
       image: '',
+      owner: localStorage.getItem('user'),
     }
   },
   methods: {
@@ -24,13 +25,13 @@ export default {
       const formData = new FormData()
       formData.append('image', this.image)
       formData.append('title', this.title)
+      formData.append('owner', this.owner)
 
       axios
-        .post('http://127.0.0.1:8000/api/categories/', formData, {
-          headers: {
-            Authorization: 'Token' + token,
-          },
-        })
+        .post(
+          'http://127.0.0.1:8000/api/categories/?auth_token=' + token,
+          formData
+        )
         .catch((error) => console.warn(error))
     },
   },

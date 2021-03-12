@@ -51,7 +51,28 @@ export default {
           <div class="main_screen_title">
             {{ product.title }}
           </div>
-          <div class="row"> </div>
+          <div class="row">
+            <div class="date_created">{{ product.date_created }}</div>
+            <input type="text" :value="product.title" />
+            <textarea type="text" :value="product.description" />
+            <input type="number" :value="product.price" />
+            <select v-model="product.category">
+              <option>А</option>
+              <option>Б</option>
+              <option>В</option>
+            </select>
+            <span>Выбрано: {{ selected }}</span>
+            <div
+              v-for="(image, index) in product.images"
+              :key="image.id"
+              class="img_product_wrap"
+            >
+              <img
+                :src="product.images[index].image_medium"
+                class="img_product"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -73,5 +94,14 @@ export default {
 }
 .back_btn_txt {
   font-size: 14px;
+}
+.img_product_wrap {
+  width: 112px;
+  height: 112px;
+}
+.img_product {
+  border: 1px solid rgba(161, 159, 176, 0.2);
+  border-radius: 12px;
+  object-fit: cover;
 }
 </style>
