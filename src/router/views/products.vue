@@ -4,6 +4,8 @@ export default {
   data() {
     return {
       data: null,
+      products: null,
+      categories: null,
 
       isActiveProduct: true,
       isActiveCategory: false,
@@ -30,6 +32,8 @@ export default {
       axios
         .get('http://127.0.0.1:8000/api/users/' + `${userId}/`)
         .then((response) => (this.data = response.data))
+      this.products = this.data.products
+      this.products = this.data.categories
     },
   },
 }
@@ -93,21 +97,26 @@ export default {
             <div class="span col-2">Категория</div>
             <div class="span">Цена</div>
           </div>
-          <RouterLink
-            v-for="product in data.products"
-            :key="product.title"
-            class="item_block"
-            :to="{ name: 'product-details', params: { endpoint: product.url } }"
+          <template v-if="data.products !== null">
+            <RouterLink
+              v-for="product in products"
+              :key="product.title"
+              class="item_block"
+              :to="{
+                name: 'product-details',
+                params: { endpoint: product.url },
+              }"
+            >
+              <div class="item_wrap">
+                <div class="item_img"
+                  ><img :src="product.images[0].image_small"
+                /></div>
+                <div class="item_title col-3">{{ product.title }}</div>
+                <div class="item_category col-2">{{ product.category }}</div>
+                <div class="item_price">{{ product.price }} руб.</div>
+              </div>
+            </RouterLink></template
           >
-            <div class="item_wrap">
-              <div class="item_img"
-                ><img :src="product.images[0].image_small"
-              /></div>
-              <div class="item_title col-3">{{ product.title }}</div>
-              <div class="item_category col-2">{{ product.category }}</div>
-              <div class="item_price">{{ product.price }} руб.</div>
-            </div>
-          </RouterLink>
         </div>
         <div
           id="nav-profile"
@@ -122,7 +131,7 @@ export default {
             <div class="span col-2">Товары</div>
           </div>
           <RouterLink
-            v-for="category in data.categories"
+            v-for="category in categories"
             :key="category.title"
             class="item_block"
             :to="{
