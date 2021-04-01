@@ -3,16 +3,16 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      data: null,
-      products: null,
-      categories: null,
+      products: [],
+      categories: [],
 
       isActiveProduct: true,
       isActiveCategory: false,
     }
   },
   created() {
-    this.getData()
+    this.getProducts()
+    this.getCategories()
   },
   methods: {
     toggleProduct: function() {
@@ -27,13 +27,17 @@ export default {
         this.isActiveCategory = true
       }
     },
-    getData() {
+    getProducts() {
       const userId = localStorage.getItem('user_id')
       axios
-        .get('http://127.0.0.1:8000/api/users/' + `${userId}/`)
-        .then((response) => (this.data = response.data))
-      this.products = this.data.products
-      this.products = this.data.categories
+        .get('http://127.0.0.1:8000/api/users/' + `${userId}/` + 'products/')
+        .then((response) => (this.products = response.data))
+    },
+    getCategories() {
+      const userId = localStorage.getItem('user_id')
+      axios
+        .get('http://127.0.0.1:8000/api/users/' + `${userId}/` + 'categories/')
+        .then((response) => (this.categories = response.data))
     },
   },
 }
@@ -97,26 +101,24 @@ export default {
             <div class="span col-2">Категория</div>
             <div class="span">Цена</div>
           </div>
-          <template v-if="data.products !== null">
-            <RouterLink
-              v-for="product in products"
-              :key="product.title"
-              class="item_block"
-              :to="{
-                name: 'product-details',
-                params: { endpoint: product.url },
-              }"
-            >
-              <div class="item_wrap">
-                <div class="item_img"
-                  ><img :src="product.images[0].image_small"
-                /></div>
-                <div class="item_title col-3">{{ product.title }}</div>
-                <div class="item_category col-2">{{ product.category }}</div>
-                <div class="item_price">{{ product.price }} руб.</div>
-              </div>
-            </RouterLink></template
+          <RouterLink
+            v-for="product in products"
+            :key="product.title"
+            class="item_block"
+            :to="{
+              name: 'product-details',
+              params: { endpoint: product.url },
+            }"
           >
+            <div class="item_wrap">
+              <div class="item_img"
+                ><img :src="product.images[0].image_small"
+              /></div>
+              <div class="item_title col-3">{{ product.title }}</div>
+              <div class="item_category col-2">{{ product.category }}</div>
+              <div class="item_price">{{ product.price }} руб.</div>
+            </div>
+          </RouterLink>
         </div>
         <div
           id="nav-profile"
@@ -214,6 +216,9 @@ export default {
   width: 50px;
   height: 50px;
   margin-right: 10px;
+  img {
+    border-radius: 8px;
+  }
 }
 .item_title {
   font-size: 15px;
