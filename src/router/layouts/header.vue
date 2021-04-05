@@ -20,14 +20,6 @@
       <button class="notify_btn">
         <img src="@assets/notification on.svg" alt="" />
       </button>
-      <RouterLink to="/account" class="btn_profile">
-        <div class="profile_icn">
-          <img src="@assets/Profile.svg" alt="" />
-        </div>
-        <div class="profile_txt">
-          Профиль
-        </div>
-      </RouterLink>
     </div>
   </div>
 </template>

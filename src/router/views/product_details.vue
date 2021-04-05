@@ -51,21 +51,33 @@ export default {
           <div class="main_screen_title">
             {{ product.title }}
           </div>
-          <div class="row">
+          <div class="row product-details-wrap">
             <div class="date_created">{{ product.date_created }}</div>
-            <input type="text" :value="product.title" />
-            <textarea type="text" :value="product.description" />
-            <input type="number" :value="product.price" />
+            <input
+              type="text"
+              class="input_title"
+              maxlength="100"
+              :value="product.title"
+            />
+            <div class="input_desc_wrap">
+              <div class="input_text_title">Описание*</div>
+              <textarea
+                type="text"
+                class="input_desc"
+                :value="product.description"
+            /></div>
+
+            <input type="number" :value="product.price" class="input_price" />
             <select v-model="product.category">
               <option>А</option>
               <option>Б</option>
               <option>В</option>
             </select>
-            <span>Выбрано: {{ selected }}</span>
             <div
               v-for="(image, index) in product.images"
               :key="image.id"
               class="img_product_wrap"
+              :class="{ imageDefault: image.default }"
             >
               <img
                 :src="product.images[index].image_medium"
@@ -81,6 +93,13 @@ export default {
 
 <style lang="scss">
 @import '@design';
+.product-details-wrap {
+  padding-right: 25px;
+}
+.date_created {
+  margin-top: 5px;
+  text-align: right;
+}
 .pt {
   padding-top: 20px;
 }
@@ -98,10 +117,50 @@ export default {
 .img_product_wrap {
   width: 112px;
   height: 112px;
+  margin-top: 25px;
+  margin-right: 15px;
 }
 .img_product {
   border: 1px solid rgba(161, 159, 176, 0.2);
   border-radius: 12px;
   object-fit: cover;
+}
+.imageDefault img {
+  border: 3px solid #0057d6;
+}
+.input_title {
+  padding: 10px 10px 10px 0;
+  margin-right: 25px;
+  margin-bottom: 25px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #000;
+  outline: none;
+}
+.input_desc {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px 10px 0;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.input_price {
+  padding: 10px 10px 10px 0;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.input_desc_wrap {
+  height: 150px;
+  padding: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  transition: all 300ms ease-out;
+}
+.input_text_title {
+  color: #a19fb0;
 }
 </style>
