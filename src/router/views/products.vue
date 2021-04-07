@@ -3,16 +3,17 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      products: [],
-      categories: [],
+      products: null,
+      categories: null,
 
       isActiveProduct: true,
       isActiveCategory: false,
+
+      isLoading: false,
     }
   },
   created() {
     this.getProducts()
-    this.getCategories()
   },
   methods: {
     toggleProduct: function() {
@@ -27,17 +28,26 @@ export default {
         this.isActiveCategory = true
       }
     },
-    getProducts() {
+    async getProducts() {
+      this.isLoading = true
       const userId = localStorage.getItem('user_id')
-      axios
+      await axios
         .get('http://127.0.0.1:8000/api/users/' + `${userId}/` + 'products/')
         .then((response) => (this.products = response.data))
+
+      this.isLoading = false
     },
-    getCategories() {
-      const userId = localStorage.getItem('user_id')
-      axios
-        .get('http://127.0.0.1:8000/api/users/' + `${userId}/` + 'categories/')
-        .then((response) => (this.categories = response.data))
+    async getCategories() {
+      if (this.categories == null) {
+        this.isLoading = true
+        const userId = localStorage.getItem('user_id')
+        await axios
+          .get(
+            'http://127.0.0.1:8000/api/users/' + `${userId}/` + 'categories/'
+          )
+          .then((response) => (this.categories = response.data))
+        this.isLoading = false
+      }
     },
   },
 }
@@ -74,7 +84,7 @@ export default {
             aria-controls="nav-profile"
             aria-selected="false"
             :class="{ active: isActiveCategory }"
-            @click="toggleCategory"
+            @click=";[toggleCategory(), getCategories()]"
             >Категории</button
           >
         </div>
@@ -101,6 +111,9 @@ export default {
             <div class="span col-2">Категория</div>
             <div class="span">Цена</div>
           </div>
+          <div v-if="isLoading" class="lds-ring"
+            ><div></div><div></div><div></div><div></div
+          ></div>
           <RouterLink
             v-for="product in products"
             :key="product.title"
@@ -132,6 +145,9 @@ export default {
             <div class="span col-3">Название</div>
             <div class="span col-2">Товары</div>
           </div>
+          <div v-if="isLoading" class="lds-ring"
+            ><div></div><div></div><div></div><div></div
+          ></div>
           <RouterLink
             v-for="category in categories"
             :key="category.title"
@@ -159,6 +175,9 @@ export default {
 .tabs_product {
   padding-bottom: 28px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+.nav-tabs .nav-link {
+  border-bottom: 2px solid transparent;
 }
 .nav-tabs .nav-link:hover,
 .nav-tabs .nav-link:focus {
