@@ -125,7 +125,7 @@ export default {
           >
             <div class="item_wrap">
               <div class="item_img"
-                ><img :src="product.images[0].image_small"
+                ><img :src="product.image_cover.image_small"
               /></div>
               <div class="item_title col-3">{{ product.title }}</div>
               <div class="item_category col-2">{{ product.category }}</div>
