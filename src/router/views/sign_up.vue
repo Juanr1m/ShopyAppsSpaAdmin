@@ -1,10 +1,48 @@
 <script>
 import appConfig from '@src/app.config'
+import axios from 'axios'
 
 export default {
   page: {
     title: 'Sign up',
     meta: [{ name: 'description', content: `Log in to ${appConfig.title}` }],
+  },
+  data() {
+    return {
+      email: '',
+      password: '',
+      password2: '',
+      errors: [],
+    }
+  },
+  methods: {
+    submitForm() {
+      this.errors = []
+      if (this.email === '') {
+        this.errors.push('The email is missing')
+      }
+      if (this.password === '') {
+        this.errors.push('The password is too short')
+      }
+      if (this.password !== this.password2) {
+        this.errors.push("The passwords doesn't match")
+      }
+      if (!this.errors.length) {
+        const formData = {
+          username: 'user',
+          email: this.email,
+          password: this.password,
+        }
+        axios
+          .post('http://127.0.0.1:8000/api/users/', formData)
+          .then((response) => {
+            this.$router.push('/')
+          })
+          .catch((error) => {
+            console.warn(error)
+          })
+      }
+    },
   },
 }
 </script>
@@ -29,22 +67,15 @@ export default {
           </div>
         </div>
       </div>
-      <form action="http://127.0.0.1:8000/api/users/" method="POST">
+      <form @submit.prevent="submitForm">
         <input type="hidden" name="is_superuser" value="false" />
         <input type="hidden" name="username" value="user" />
-        <!-- <div class="form_item">
-          <div class="form_item_title">
-            Имя
-          </div>
-          <input required type="text" placeholder="Как вас зовут?" />
-        </div>` -->
         <div class="form_item">
           <div class="form_item_title">
             Email
           </div>
           <input
-            name="email"
-            required
+            v-model="email"
             type="email"
             placeholder="Введите свою электронную почту"
           />
@@ -54,11 +85,24 @@ export default {
             Пароль
           </div>
           <input
-            name="password"
-            required
+            v-model="password"
             type="password"
             placeholder="Введите пароль"
           />
+        </div>
+        <div class="form_item">
+          <div class="form_item_title">
+            Повторите пароль
+          </div>
+          <input
+            v-model="password2"
+            type="password"
+            placeholder="Введите пароль"
+          />
+        </div>
+
+        <div v-if="errors.length" class="notification is-danger">
+          <p v-for="error in errors" :key="error">{{ error }}</p>
         </div>
         <button type="submit" class="login_btn">Зарегистрироваться</button>
       </form>
