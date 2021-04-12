@@ -55,12 +55,14 @@ body {
 // ===
 
 a {
+  color: $color-link-text;
   text-decoration: none;
 }
 a:visited {
   color: $color-link-text;
 }
 a:hover {
+  color: $color-link-text;
   text-decoration: none;
 }
 

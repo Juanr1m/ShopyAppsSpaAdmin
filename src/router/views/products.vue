@@ -217,11 +217,14 @@ export default {
   background-color: #0057d6;
   border-radius: 20px;
 }
+.add_btn:visited {
+  color: white;
+  background-color: #0057d6;
+}
 .add_btn:hover {
   color: white;
   background-color: #153769;
 }
-
 .item_wrap {
   display: flex;
   align-items: center;
