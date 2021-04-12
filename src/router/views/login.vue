@@ -1,6 +1,6 @@
 <script>
 import appConfig from '@src/app.config'
-import { authMethods } from '@state/helpers'
+import axios from 'axios'
 
 export default {
   page: {
@@ -11,31 +11,42 @@ export default {
     return {
       email: '',
       password: '',
-      authError: null,
+      errors: [],
       tryingToLogIn: false,
     }
   },
   methods: {
-    ...authMethods,
-    // Try to log the user in with the username
-    // and password they provided.
-    tryToLogIn() {
-      this.tryingToLogIn = true
-      // Reset the authError if it existed.
-      this.authError = null
-      return this.logIn({
+    async submitForm() {
+      axios.defaults.headers.common.Authorization = ''
+      localStorage.removeItem('token')
+      const formData = {
         email: this.email,
         password: this.password,
-      })
+      }
+      await axios
+        .post('http://127.0.0.1:8000/api/users/auth/token/login/', formData)
         .then((response) => {
-          this.tryingToLogIn = false
-          localStorage.setItem('login_data', response)
-          // Redirect to the originally requested page, or to the home page
-          this.$router.push(this.$route.query.redirectFrom || { name: 'home' })
+          const token = response.data.auth_token
+          const userId = response.data.id
+          this.$store.commit('setToken', token)
+          this.$store.commit('setUserId', userId)
+
+          axios.defaults.headers.common.Authorization = 'Token ' + token
+          localStorage.setItem('token', token)
+          localStorage.setItem('userId', userId)
+          const toPath = this.$route.query.to || '/home'
+          this.$router.push(toPath)
         })
         .catch((error) => {
-          this.tryingToLogIn = false
-          this.authError = error
+          if (error.response) {
+            for (const property in error.response.data) {
+              this.errors.push(`${property}: ${error.response.data[property]}`)
+            }
+          } else {
+            this.errors.push('Something went wrong. Please try again')
+
+            console.log(JSON.stringify(error))
+          }
         })
     },
   },
@@ -62,7 +73,7 @@ export default {
           </div>
         </div>
       </div>
-      <form @submit.prevent="tryToLogIn">
+      <form @submit.prevent="submitForm">
         <div class="form_item">
           <div class="form_item_title">
             Email

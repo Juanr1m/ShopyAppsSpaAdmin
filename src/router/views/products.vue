@@ -30,7 +30,7 @@ export default {
     },
     async getProducts() {
       this.isLoading = true
-      const userId = localStorage.getItem('user_id')
+      const userId = localStorage.getItem('userId')
       await axios
         .get('http://127.0.0.1:8000/api/users/' + `${userId}/` + 'products/')
         .then((response) => (this.products = response.data))
@@ -40,7 +40,7 @@ export default {
     async getCategories() {
       if (this.categories == null) {
         this.isLoading = true
-        const userId = localStorage.getItem('user_id')
+        const userId = localStorage.getItem('userId')
         await axios
           .get(
             'http://127.0.0.1:8000/api/users/' + `${userId}/` + 'categories/'
@@ -125,7 +125,10 @@ export default {
           >
             <div class="item_wrap">
               <div class="item_img"
-                ><img :src="product.image_cover.image_small"
+                ><img
+                  :src="
+                    'http://127.0.0.1:8000' + product.image_cover.image_small
+                  "
               /></div>
               <div class="item_title col-3">{{ product.title }}</div>
               <div class="item_category col-2">{{ product.category }}</div>
