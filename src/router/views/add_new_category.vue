@@ -13,7 +13,6 @@ export default {
     return {
       title: '',
       image: '',
-      owner: localStorage.getItem('user'),
     }
   },
   methods: {
@@ -21,17 +20,14 @@ export default {
       this.image = this.$refs.file.files[0]
     },
     addNewCategory() {
-      const token = localStorage.getItem('token')
+      const userId = localStorage.getItem('userId')
       const formData = new FormData()
       formData.append('image', this.image)
       formData.append('title', this.title)
-      formData.append('owner', this.owner)
+      formData.append('id', userId)
 
       axios
-        .post(
-          'http://127.0.0.1:8000/api/categories/?auth_token=' + token,
-          formData
-        )
+        .post('http://127.0.0.1:8000/api/categories/', formData)
         .catch((error) => console.warn(error))
     },
   },
