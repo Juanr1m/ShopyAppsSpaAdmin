@@ -17,6 +17,8 @@ export default {
   },
   methods: {
     async submitForm() {
+      this.tryingToLogIn = true
+      this.errors = []
       axios.defaults.headers.common.Authorization = ''
       localStorage.removeItem('token')
       const formData = {
@@ -26,6 +28,7 @@ export default {
       await axios
         .post('http://127.0.0.1:8000/api/users/auth/token/login/', formData)
         .then((response) => {
+          this.tryingToLogIn = false
           const token = response.data.auth_token
           const userId = response.data.id
           this.$store.commit('setToken', token)
@@ -38,6 +41,7 @@ export default {
           this.$router.push(toPath)
         })
         .catch((error) => {
+          this.tryingToLogIn = false
           if (error.response) {
             for (const property in error.response.data) {
               this.errors.push(`${property}: ${error.response.data[property]}`)
