@@ -17,6 +17,11 @@ export default {
   },
   data() {
     return {
+      title: '',
+      price: '',
+      description: '',
+      images: '',
+
       product: null,
     }
   },
@@ -52,27 +57,38 @@ export default {
             {{ product.title }}
           </div>
           <div class="row product-details-wrap">
-            <div class="date_created">{{ product.date_created }}</div>
-            <input
-              type="text"
-              class="input_title"
-              maxlength="100"
-              :value="product.title"
-            />
+            <div class="input_title_wrap">
+              <div class="input_title">
+                <div class="input_txt">Название товара*</div>
+                <input type="text" maxlength="100" :value="product.title"
+              /></div>
+              <div class="date_created">{{ product.date_created }}</div>
+            </div>
+
+            <div class="input_price">
+              <div class="input_txt">Цена*</div>
+              <div class="input_price_wrap">
+                <input
+                  type="number"
+                  class="input_price"
+                  :value="product.price"
+                />
+                <span>.руб</span></div
+              >
+            </div>
             <div class="input_desc_wrap">
-              <div class="input_text_title">Описание*</div>
+              <div class="input_txt">Описание</div>
               <textarea
                 type="text"
                 class="input_desc"
                 :value="product.description"
             /></div>
 
-            <input type="number" :value="product.price" class="input_price" />
-            <select v-model="product.category">
+            <!-- <select v-model="product.category">
               <option>А</option>
               <option>Б</option>
               <option>В</option>
-            </select>
+            </select> -->
             <div
               v-for="(image, index) in product.images"
               :key="image.id"
@@ -93,11 +109,16 @@ export default {
 
 <style lang="scss">
 @import '@design';
+.input_title_wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
 .product-details-wrap {
   padding-right: 25px;
 }
 .date_created {
-  margin-top: 5px;
+  width: 95px;
   text-align: right;
 }
 .pt {
@@ -128,39 +149,61 @@ export default {
 .imageDefault img {
   border: 3px solid #0057d6;
 }
+
 .input_title {
+  width: 100%;
   padding: 10px 10px 10px 0;
+  margin-top: 5px;
   margin-right: 25px;
-  margin-bottom: 25px;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid #000;
-  outline: none;
+  margin-bottom: 15px;
+  input {
+    width: 100%;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+  }
+  input:focus {
+    border-bottom: 2px solid #000;
+  }
 }
 .input_desc {
   display: block;
   width: 100%;
   height: 100%;
-  padding: 10px 10px 10px 0;
   background: transparent;
   border: none;
   outline: none;
 }
-.input_price {
-  padding: 10px 10px 10px 0;
-  background: transparent;
-  border: none;
-  outline: none;
-}
+
 .input_desc_wrap {
   height: 150px;
-  padding: 16px;
+  padding: 5px;
+  margin-right: 25px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 8px;
   transition: all 300ms ease-out;
 }
-.input_text_title {
-  color: #a19fb0;
+.input_txt {
+  display: inline-box;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  font-size: 14px;
+  color: #58585c;
+}
+.input_price {
+  width: 150px;
+  margin-bottom: 15px;
+  .input_price_wrap {
+    display: flex;
+    input {
+      width: 100%;
+      padding-bottom: 5px;
+      margin-right: 5px;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+    }
+    input:focus {
+      border-bottom: 2px solid #000;
+    }
+  }
 }
 </style>

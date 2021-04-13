@@ -66,6 +66,12 @@ a:hover {
   text-decoration: none;
 }
 
+input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
 h1 {
   @extend %typography-xxlarge;
 }

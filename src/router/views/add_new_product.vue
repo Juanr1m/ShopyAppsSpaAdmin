@@ -20,6 +20,10 @@ export default {
     }
   },
   methods: {
+    submitForm(evt) {
+      evt.preventDefault()
+      document.getElementById('formform').submit()
+    },
     handleFileUpload() {
       this.image = this.$refs.file.files[0]
     },
@@ -58,42 +62,56 @@ export default {
       <div class="row height_wrap">
         <Menu></Menu>
         <div class="col-10 main_screen pt">
-          <RouterLink class="back_btn" to="/home">
-            <div class="back_btn_icn"
-              ><img src="@assets/keyboard_arrow_left-24px.svg" alt=""
-            /></div>
-            <div class="back_btn_txt">Товары</div>
-          </RouterLink>
-          <div class="main_screen_title">
-            Добавить новый товар
+          <div class="header_wrap">
+            <div class="header_wrap_wrap">
+              <RouterLink class="back_btn" to="/home">
+                <div class="back_btn_icn"
+                  ><img src="@assets/keyboard_arrow_left-24px.svg" alt=""
+                /></div>
+                <div class="back_btn_txt">Товары</div>
+              </RouterLink>
+              <div class="main_screen_title noborder">
+                Добавить новый товар
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn save_btn"
+              @click="submitForm($event)"
+            >
+              Сохранить
+            </button>
           </div>
+
           <div class="row scroll">
-            <form @submit.prevent="addNewProduct">
-              <input
-                v-model="title"
-                type="text"
-                class="input_title"
-                maxlength="100"
-              />
+            <form id="addnewproductform" @submit.prevent="addNewProduct">
+              <div class="input_title">
+                <div class="input_txt">Название товара*</div>
+                <input v-model="title" type="text" maxlength="100"
+              /></div>
+              <div class="input_price">
+                <div class="input_txt">Цена*</div>
+                <div class="input_price_wrap">
+                  <input v-model="price" type="number" class="input_price" />
+                  <span>.руб</span></div
+                >
+              </div>
               <div class="input_desc_wrap">
-                <div class="input_text_title">Описание*</div>
+                <div class="input_txt">Описание</div>
                 <textarea v-model="description" type="text" class="input_desc"
               /></div>
-              <input
-                v-model="price"
-                type="number"
-                class="input_price"
-                placeholder=".руб"
-              />
+              <div class="input_media">
+                <div class="input_media_wrap">
+                  <div class="input_txt">Картинки*</div>
 
-              <input
-                id="file"
-                ref="file"
-                type="file"
-                @change="handleFileUpload"
-              />
-
-              <button type="submit">Добавить</button>
+                  <input
+                    id="file"
+                    ref="file"
+                    type="file"
+                    @change="handleFileUpload"
+                  />
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -104,8 +122,14 @@ export default {
 
 <style lang="scss">
 @import '@design';
+
 .pt {
   padding-top: 20px;
+}
+.header_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .back_btn {
   display: flex;
@@ -120,37 +144,84 @@ export default {
 }
 .input_title {
   padding: 10px 10px 10px 0;
+  margin-top: 5px;
   margin-right: 25px;
-  margin-bottom: 25px;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid #000;
-  outline: none;
+  margin-bottom: 15px;
+  input {
+    width: 100%;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+  }
+  input:focus {
+    border-bottom: 2px solid #000;
+  }
 }
 .input_desc {
   display: block;
   width: 100%;
   height: 100%;
-  padding: 10px 10px 10px 0;
   background: transparent;
   border: none;
   outline: none;
 }
-.input_price {
-  padding: 10px 10px 10px 0;
-  background: transparent;
-  border: none;
-  outline: none;
-}
+
 .input_desc_wrap {
   height: 150px;
-  padding: 16px;
+  padding: 5px;
+  margin-right: 25px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 8px;
   transition: all 300ms ease-out;
 }
-.input_text_title {
-  color: #a19fb0;
+.input_txt {
+  display: inline-box;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  font-size: 14px;
+  color: #58585c;
+}
+.input_price {
+  width: 150px;
+  margin-bottom: 15px;
+  .input_price_wrap {
+    display: flex;
+    input {
+      width: 100%;
+      padding-bottom: 5px;
+      margin-right: 5px;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+    }
+    input:focus {
+      border-bottom: 2px solid #000;
+    }
+  }
+}
+.noborder {
+  border: none;
+}
+.input_media {
+  margin-top: 15px;
+  .input_media_wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+  }
+}
+.save_btn {
+  max-height: 40px;
+  padding: 8px 16px;
+  margin-left: 20px;
+  color: white;
+  background-color: #0057d6;
+  border-radius: 20px;
+}
+.save_btn:visited {
+  color: white;
+  background-color: #0057d6;
+}
+.save_btn:hover {
+  color: white;
+  background-color: #153769;
 }
 </style>
