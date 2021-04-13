@@ -77,7 +77,7 @@ export default {
               v-for="(image, index) in product.images"
               :key="image.id"
               class="img_product_wrap"
-              :class="{ imageDefault: image.default }"
+              :class="{ imageDefault: image.is_cover }"
             >
               <img
                 :src="product.images[index].image_medium"
