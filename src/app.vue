@@ -49,7 +49,10 @@ body {
 #app {
   @extend %typography-small;
 }
-
+input[type='file'] {
+  position: absolute;
+  top: -500px;
+}
 // ===
 // Base element styles
 // ===
@@ -134,6 +137,26 @@ button {
 }
 .row > * {
   width: 100%;
+}
+.delete_btn {
+  color: red;
+}
+
+.save_btn {
+  max-height: 40px;
+  padding: 8px 16px;
+  margin-left: 20px;
+  color: white;
+  background-color: #0057d6;
+  border-radius: 20px;
+}
+.save_btn:visited {
+  color: white;
+  background-color: #0057d6;
+}
+.save_btn:hover {
+  color: white;
+  background-color: #153769;
 }
 
 /* scrollbar */

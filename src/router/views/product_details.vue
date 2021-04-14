@@ -167,10 +167,6 @@ export default {
 
 <style lang="scss">
 @import '@design';
-input[type='file'] {
-  position: absolute;
-  top: -500px;
-}
 .header_wrap {
   display: flex;
   align-items: center;
@@ -208,7 +204,7 @@ input[type='file'] {
 .img_product_wrap {
   width: 112px;
   height: 112px;
-  margin-top: 25px;
+  margin-top: 10px;
   margin-right: 15px;
 }
 .img_product {
@@ -275,21 +271,5 @@ input[type='file'] {
       border-bottom: 2px solid #000;
     }
   }
-}
-.save_btn {
-  max-height: 40px;
-  padding: 8px 16px;
-  margin-left: 20px;
-  color: white;
-  background-color: #0057d6;
-  border-radius: 20px;
-}
-.save_btn:visited {
-  color: white;
-  background-color: #0057d6;
-}
-.save_btn:hover {
-  color: white;
-  background-color: #153769;
 }
 </style>

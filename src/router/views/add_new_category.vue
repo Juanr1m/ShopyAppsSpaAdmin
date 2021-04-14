@@ -16,12 +16,6 @@ export default {
     }
   },
   methods: {
-    addFiles() {
-      this.$refs.files.click()
-    },
-    handleFileUpload() {
-      this.file = this.$refs.file.files[0]
-    },
     addNewCategory() {
       const userId = localStorage.getItem('userId')
       const formData = new FormData()
@@ -64,13 +58,13 @@ export default {
           <div class="row scroll">
             <template>
               <div class="input_title">
-                <div class="input_txt">Название товара*</div>
+                <div class="input_txt">Название категории*</div>
                 <input v-model="title" type="text" maxlength="100"
               /></div>
 
               <div class="input_media">
                 <div class="input_media_wrap">
-                  <div class="input_txt">Картинки*</div>
+                  <div class="input_txt">Изображение*</div>
                   <div class="btn">
                     <button @click="addFiles">Добавить</button>
                   </div>
@@ -79,7 +73,6 @@ export default {
                     id="files"
                     ref="files"
                     type="file"
-                    multiple
                     @change="handleFilesUpload"
                   />
                 </div>
@@ -94,10 +87,7 @@ export default {
 
 <style lang="scss">
 @import '@design';
-input[type='file'] {
-  position: absolute;
-  top: -500px;
-}
+
 .header_wrap {
   display: flex;
   align-items: center;
@@ -119,22 +109,6 @@ input[type='file'] {
 }
 .back_btn_txt {
   font-size: 14px;
-}
-.save_btn {
-  max-height: 40px;
-  padding: 8px 16px;
-  margin-left: 20px;
-  color: white;
-  background-color: #0057d6;
-  border-radius: 20px;
-}
-.save_btn:visited {
-  color: white;
-  background-color: #0057d6;
-}
-.save_btn:hover {
-  color: white;
-  background-color: #153769;
 }
 
 .input_title {
