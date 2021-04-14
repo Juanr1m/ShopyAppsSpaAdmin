@@ -20,7 +20,7 @@ export default {
       title: '',
       price: '',
       description: '',
-      images: '',
+      files: '',
 
       product: null,
     }
@@ -29,6 +29,26 @@ export default {
     this.getProduct(this.id)
   },
   methods: {
+    handleFilesUpload() {
+      const uploadedFiles = this.$refs.files.files
+
+      /*
+          Adds the uploaded file to the files array
+        */
+      for (var i = 0; i < uploadedFiles.length; i++) {
+        this.files.push(uploadedFiles[i])
+      }
+    },
+
+    /*
+        Removes a select file the user has uploaded
+      */
+    removeFile(key) {
+      this.files.splice(key, 1)
+    },
+    addFiles() {
+      this.$refs.files.click()
+    },
     getProduct(id) {
       axios(this.endpoint)
         .then((response) => {
@@ -47,15 +67,27 @@ export default {
       <div class="row height_wrap">
         <Menu></Menu>
         <div class="col-10 main_screen pt">
-          <RouterLink class="back_btn" to="/home">
-            <div class="back_btn_icn"
-              ><img src="@assets/keyboard_arrow_left-24px.svg" alt=""
-            /></div>
-            <div class="back_btn_txt">Товары</div>
-          </RouterLink>
-          <div class="main_screen_title">
-            {{ product.title }}
+          <div class="header_wrap">
+            <div class="header_wrap_wrap">
+              <RouterLink class="back_btn" to="/home">
+                <div class="back_btn_icn"
+                  ><img src="@assets/keyboard_arrow_left-24px.svg" alt=""
+                /></div>
+                <div class="back_btn_txt">Товары</div>
+              </RouterLink>
+              <div class="main_screen_title">
+                {{ product.title }}
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn save_btn"
+              @click="submitForm($event)"
+            >
+              Сохранить
+            </button>
           </div>
+
           <div class="row product-details-wrap">
             <div class="input_title_wrap">
               <div class="input_title">
@@ -89,6 +121,32 @@ export default {
               <option>Б</option>
               <option>В</option>
             </select> -->
+            <div class="input_media">
+              <div class="input_media_wrap">
+                <div class="input_txt">Картинки*</div>
+                <div class="btn">
+                  <button @click="addFiles">Добавить</button>
+                </div>
+                <div class="large-12 medium-12 small-12 cell">
+                  <div
+                    v-for="(file, key) in files"
+                    :key="file.key"
+                    class="file-listing"
+                    >{{ file.name }}
+                    <span class="remove-file" @click="removeFile(key)"
+                      >Remove</span
+                    ></div
+                  >
+                </div>
+                <input
+                  id="files"
+                  ref="files"
+                  type="file"
+                  multiple
+                  @change="handleFilesUpload"
+                />
+              </div>
+            </div>
             <div
               v-for="(image, index) in product.images"
               :key="image.id"
@@ -109,6 +167,18 @@ export default {
 
 <style lang="scss">
 @import '@design';
+input[type='file'] {
+  position: absolute;
+  top: -500px;
+}
+.header_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .header_wrap_wrap {
+    width: 100%;
+  }
+}
 .input_title_wrap {
   display: flex;
   align-items: flex-start;
@@ -191,7 +261,7 @@ export default {
   color: #58585c;
 }
 .input_price {
-  width: 150px;
+  width: 120px;
   margin-bottom: 15px;
   .input_price_wrap {
     display: flex;
@@ -205,5 +275,21 @@ export default {
       border-bottom: 2px solid #000;
     }
   }
+}
+.save_btn {
+  max-height: 40px;
+  padding: 8px 16px;
+  margin-left: 20px;
+  color: white;
+  background-color: #0057d6;
+  border-radius: 20px;
+}
+.save_btn:visited {
+  color: white;
+  background-color: #0057d6;
+}
+.save_btn:hover {
+  color: white;
+  background-color: #153769;
 }
 </style>

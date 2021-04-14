@@ -12,17 +12,20 @@ export default {
   data() {
     return {
       title: '',
-      image: '',
+      file: '',
     }
   },
   methods: {
+    addFiles() {
+      this.$refs.files.click()
+    },
     handleFileUpload() {
-      this.image = this.$refs.file.files[0]
+      this.file = this.$refs.file.files[0]
     },
     addNewCategory() {
       const userId = localStorage.getItem('userId')
       const formData = new FormData()
-      formData.append('image', this.image)
+      formData.append('image', this.file)
       formData.append('title', this.title)
       formData.append('id', userId)
 
@@ -41,33 +44,47 @@ export default {
       <div class="row height_wrap">
         <Menu></Menu>
         <div class="col-10 main_screen pt">
-          <RouterLink class="back_btn" to="/home">
-            <div class="back_btn_icn"
-              ><img src="@assets/keyboard_arrow_left-24px.svg" alt=""
-            /></div>
-            <div class="back_btn_txt">Товары</div>
-          </RouterLink>
-          <div class="main_screen_title">
-            Добавить новую категорию
+          <div class="header_wrap">
+            <div class="header_wrap_wrap">
+              <RouterLink class="back_btn" to="/home">
+                <div class="back_btn_icn"
+                  ><img src="@assets/keyboard_arrow_left-24px.svg" alt=""
+                /></div>
+                <div class="back_btn_txt">Товары</div>
+              </RouterLink>
+              <div class="main_screen_title noborder">
+                Добавить новую категорию
+              </div>
+            </div>
+            <button class="btn save_btn" @click="addNewCategory">
+              Сохранить
+            </button>
           </div>
+
           <div class="row scroll">
-            <form @submit.prevent="addNewCategory">
-              <BaseInputText
-                v-model="title"
-                name="title"
-                required
-                type="text"
-              />
+            <template>
+              <div class="input_title">
+                <div class="input_txt">Название товара*</div>
+                <input v-model="title" type="text" maxlength="100"
+              /></div>
 
-              <input
-                id="file"
-                ref="file"
-                type="file"
-                @change="handleFileUpload"
-              />
+              <div class="input_media">
+                <div class="input_media_wrap">
+                  <div class="input_txt">Картинки*</div>
+                  <div class="btn">
+                    <button @click="addFiles">Добавить</button>
+                  </div>
 
-              <button type="submit">Добавить</button>
-            </form>
+                  <input
+                    id="files"
+                    ref="files"
+                    type="file"
+                    multiple
+                    @change="handleFilesUpload"
+                  />
+                </div>
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -77,6 +94,15 @@ export default {
 
 <style lang="scss">
 @import '@design';
+input[type='file'] {
+  position: absolute;
+  top: -500px;
+}
+.header_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .scroll {
   overflow: scroll;
 }
@@ -93,5 +119,47 @@ export default {
 }
 .back_btn_txt {
   font-size: 14px;
+}
+.save_btn {
+  max-height: 40px;
+  padding: 8px 16px;
+  margin-left: 20px;
+  color: white;
+  background-color: #0057d6;
+  border-radius: 20px;
+}
+.save_btn:visited {
+  color: white;
+  background-color: #0057d6;
+}
+.save_btn:hover {
+  color: white;
+  background-color: #153769;
+}
+
+.input_title {
+  padding: 10px 10px 10px 0;
+  margin-top: 5px;
+  margin-right: 25px;
+  margin-bottom: 15px;
+  input {
+    width: 100%;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+  }
+  input:focus {
+    border-bottom: 2px solid #000;
+  }
+}
+.noborder {
+  border: none;
+}
+.input_media {
+  margin-top: 15px;
+  .input_media_wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+  }
 }
 </style>

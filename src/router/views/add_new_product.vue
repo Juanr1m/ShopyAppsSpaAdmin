@@ -16,18 +16,32 @@ export default {
       description: '',
       price: null,
 
-      image: '',
+      files: [],
     }
   },
   methods: {
-    submitForm(evt) {
-      evt.preventDefault()
-      document.getElementById('formform').submit()
+    handleFilesUpload() {
+      const uploadedFiles = this.$refs.files.files
+
+      /*
+          Adds the uploaded file to the files array
+        */
+      for (var i = 0; i < uploadedFiles.length; i++) {
+        this.files.push(uploadedFiles[i])
+      }
     },
-    handleFileUpload() {
-      this.image = this.$refs.file.files[0]
+
+    /*
+        Removes a select file the user has uploaded
+      */
+    removeFile(key) {
+      this.files.splice(key, 1)
     },
-    async addNewProduct() {
+    addFiles() {
+      this.$refs.files.click()
+    },
+
+    addNewProduct() {
       const userId = localStorage.getItem('userId')
       const formData = new FormData()
 
@@ -35,20 +49,14 @@ export default {
       formData.append('price', this.price)
       formData.append('description', this.description)
       formData.append('id', userId)
+      formData.append('images', this.files)
 
-      await axios
+      axios
         .post('http://127.0.0.1:8000/api/products/', formData)
         .then((response) => {
           console.log(response.data)
+          this.files = []
         })
-        .catch((error) => console.warn(error))
-
-      const formDataImages = new FormData()
-      formDataImages.append('id', this.id)
-      formDataImages.append('image', this.image)
-      formDataImages.append('is_cover', true)
-      axios
-        .post('http://127.0.0.1:8000/api/product-images/', formDataImages)
         .catch((error) => console.warn(error))
     },
   },
@@ -74,17 +82,13 @@ export default {
                 Добавить новый товар
               </div>
             </div>
-            <button
-              type="submit"
-              class="btn save_btn"
-              @click="submitForm($event)"
-            >
+            <button class="btn save_btn" @click="addNewProduct">
               Сохранить
             </button>
           </div>
 
           <div class="row scroll">
-            <form id="addnewproductform" @submit.prevent="addNewProduct">
+            <template>
               <div class="input_title">
                 <div class="input_txt">Название товара*</div>
                 <input v-model="title" type="text" maxlength="100"
@@ -103,16 +107,30 @@ export default {
               <div class="input_media">
                 <div class="input_media_wrap">
                   <div class="input_txt">Картинки*</div>
-
+                  <div class="btn">
+                    <button @click="addFiles">Добавить</button>
+                  </div>
+                  <div class="large-12 medium-12 small-12 cell">
+                    <div
+                      v-for="(file, key) in files"
+                      :key="file.key"
+                      class="file-listing"
+                      >{{ file.name }}
+                      <span class="remove-file" @click="removeFile(key)"
+                        >Remove</span
+                      ></div
+                    >
+                  </div>
                   <input
-                    id="file"
-                    ref="file"
+                    id="files"
+                    ref="files"
                     type="file"
-                    @change="handleFileUpload"
+                    multiple
+                    @change="handleFilesUpload"
                   />
                 </div>
               </div>
-            </form>
+            </template>
           </div>
         </div>
       </div>
@@ -122,7 +140,10 @@ export default {
 
 <style lang="scss">
 @import '@design';
-
+input[type='file'] {
+  position: absolute;
+  top: -500px;
+}
 .pt {
   padding-top: 20px;
 }
@@ -223,5 +244,14 @@ export default {
 .save_btn:hover {
   color: white;
   background-color: #153769;
+}
+div.file-listing {
+  width: 200px;
+}
+
+span.remove-file {
+  float: right;
+  color: red;
+  cursor: pointer;
 }
 </style>
