@@ -5,7 +5,7 @@ import Menu from '@layouts/menu.vue'
 import Header from '@layouts/header.vue'
 export default {
   page: {
-    title: 'Add new category',
+    title: 'Добавить категорию',
     meta: [{ name: 'description', content: appConfig.description }],
   },
   components: { Header, Menu },

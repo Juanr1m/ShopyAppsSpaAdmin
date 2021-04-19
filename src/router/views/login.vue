@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export default {
   page: {
-    title: 'Log in',
+    title: 'Войти',
     meta: [{ name: 'description', content: `Log in to ${appConfig.title}` }],
   },
   data() {

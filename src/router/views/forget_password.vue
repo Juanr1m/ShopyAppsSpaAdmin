@@ -3,7 +3,7 @@ import appConfig from '@src/app.config'
 
 export default {
   page: {
-    title: 'Sign up',
+    title: 'Войти',
     meta: [{ name: 'description', content: `Log in to ${appConfig.title}` }],
   },
 }

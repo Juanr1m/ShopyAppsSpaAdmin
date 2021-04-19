@@ -6,7 +6,7 @@ import ProductsPage from '@views/products.vue'
 
 export default {
   page: {
-    title: 'Home',
+    title: 'Товары',
     meta: [{ name: 'description', content: appConfig.description }],
   },
   components: { Menu, Header, ProductsPage },
