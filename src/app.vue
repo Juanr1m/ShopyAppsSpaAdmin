@@ -75,27 +75,6 @@ input {
   outline: none;
 }
 
-h1 {
-  @extend %typography-xxlarge;
-}
-
-h2 {
-  @extend %typography-xlarge;
-}
-
-h3 {
-  @extend %typography-large;
-}
-
-h4 {
-  @extend %typography-medium;
-}
-
-h5,
-h6 {
-  @extend %typography-small;
-}
-
 ul {
   padding: 0;
   margin: 0;
@@ -147,12 +126,12 @@ button {
   padding: 8px 16px;
   margin-left: 20px;
   color: white;
-  background-color: #0057d6;
+  background-color: $primary-color;
   border-radius: 20px;
 }
 .save_btn:visited {
   color: white;
-  background-color: #0057d6;
+  background-color: $primary-color;
 }
 .save_btn:hover {
   color: white;

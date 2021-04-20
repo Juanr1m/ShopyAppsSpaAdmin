@@ -194,7 +194,7 @@ export default {
   color: black;
   background-color: transparent;
   border-color: transparent;
-  border-bottom: 2px solid #0057d6;
+  border-bottom: 2px solid $primary-color;
 }
 
 .tab_products {
@@ -214,12 +214,12 @@ export default {
   padding: 8px 16px;
   margin-left: 20px;
   color: white;
-  background-color: #0057d6;
+  background-color: $primary-color;
   border-radius: 20px;
 }
 .add_btn:visited {
   color: white;
-  background-color: #0057d6;
+  background-color: $primary-color;
 }
 .add_btn:hover {
   color: white;

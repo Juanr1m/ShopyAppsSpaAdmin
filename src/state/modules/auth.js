@@ -28,22 +28,7 @@ export const actions = {
   },
 
   // Logs in the current user.
-  logIn({ commit, dispatch, getters }, { email, password } = {}) {
-    if (getters.loggedIn) return dispatch('validate')
-
-    return axios
-      .post('http://127.0.0.1:8000/api/users/auth/token/login', {
-        password,
-        email,
-      })
-      .then((response) => {
-        localStorage.setItem('user_id', response.data.id)
-        localStorage.setItem('token', response.data.auth_token)
-        const token = response.data.auth_token
-        commit('SET_CURRENT_USER', token)
-        return token
-      })
-  },
+  logIn({ commit, dispatch, getters }, { email, password } = {}) {},
 
   // Logs out the current user.
   logOut({ commit }) {

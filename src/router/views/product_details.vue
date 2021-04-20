@@ -213,7 +213,7 @@ export default {
   object-fit: cover;
 }
 .imageDefault img {
-  border: 3px solid #0057d6;
+  border: 3px solid $primary-color;
 }
 
 .input_title {
