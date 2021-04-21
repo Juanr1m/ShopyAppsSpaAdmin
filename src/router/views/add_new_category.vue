@@ -16,11 +16,18 @@ export default {
     }
   },
   methods: {
+    addFiles() {
+      this.$refs.files.click()
+    },
+    handleFileUpload() {
+      this.file = this.$refs.files.files[0]
+    },
     addNewCategory() {
       const userId = localStorage.getItem('userId')
       const formData = new FormData()
-      formData.append('image', this.file)
+
       formData.append('title', this.title)
+      formData.append('image', this.file)
       formData.append('id', userId)
 
       axios
@@ -73,7 +80,7 @@ export default {
                     id="files"
                     ref="files"
                     type="file"
-                    @change="handleFilesUpload"
+                    @change="handleFileUpload"
                   />
                 </div>
               </div>
