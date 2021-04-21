@@ -3,6 +3,7 @@ import appConfig from '@src/app.config'
 import axios from 'axios'
 import Menu from '@layouts/menu.vue'
 import Header from '@layouts/header.vue'
+import { toast } from 'bulma-toast'
 export default {
   page: {
     title: 'Добавить категорию',
@@ -32,6 +33,18 @@ export default {
 
       axios
         .post('http://127.0.0.1:8000/api/categories/', formData)
+        .then(
+          toast({
+            message: 'Категория добавлена',
+            type: 'toast_success',
+            dismissible: true,
+            pauseOnHover: true,
+            duration: 2000,
+            position: 'bottom-right',
+          }),
+          (this.file = ''),
+          (this.title = '')
+        )
         .catch((error) => console.warn(error))
     },
   },
@@ -139,8 +152,9 @@ export default {
   margin-top: 15px;
   .input_media_wrap {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    width: 450px;
+    width: 250px;
   }
 }
 </style>

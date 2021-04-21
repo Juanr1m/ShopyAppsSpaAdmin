@@ -3,6 +3,7 @@ import appConfig from '@src/app.config'
 import axios from 'axios'
 import Menu from '@layouts/menu.vue'
 import Header from '@layouts/header.vue'
+import { toast } from 'bulma-toast'
 export default {
   page: {
     title: 'Добавить товар',
@@ -11,7 +12,6 @@ export default {
   components: { Header, Menu },
   data() {
     return {
-      id: '',
       title: '',
       description: '',
       price: null,
@@ -53,10 +53,20 @@ export default {
 
       axios
         .post('http://127.0.0.1:8000/api/products/', formData)
-        .then((response) => {
-          console.log(response.data)
-          this.files = []
-        })
+        .then(
+          toast({
+            message: 'Товар добавлен',
+            type: 'toast_success',
+            dismissible: true,
+            pauseOnHover: true,
+            duration: 2000,
+            position: 'bottom-right',
+          }),
+          (this.title = ''),
+          (this.price = null),
+          (this.description = ''),
+          (this.files = [])
+        )
         .catch((error) => console.warn(error))
     },
   },
@@ -225,8 +235,9 @@ input[type='file'] {
   margin-top: 15px;
   .input_media_wrap {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    width: 450px;
+    width: 250px;
   }
 }
 

@@ -158,4 +158,12 @@ button {
 #nprogress .bar {
   background: $color-body-bg;
 }
+
+.toast_success {
+  padding: 25px 32px;
+  font-size: 18px;
+  color: white;
+  background-color: #4bb543;
+  border-radius: 10px;
+}
 </style>
