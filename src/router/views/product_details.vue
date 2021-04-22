@@ -123,7 +123,7 @@ export default {
             </select> -->
             <div class="input_media">
               <div class="input_media_wrap">
-                <div class="input_txt">Картинки*</div>
+                <div class="input_txt">Изображения*</div>
                 <div class="btn">
                   <button @click="addFiles">Добавить</button>
                 </div>

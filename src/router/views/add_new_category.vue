@@ -14,6 +14,9 @@ export default {
     return {
       title: '',
       file: '',
+
+      showPreview: false,
+      imagePreview: '',
     }
   },
   methods: {
@@ -22,6 +25,30 @@ export default {
     },
     handleFileUpload() {
       this.file = this.$refs.files.files[0]
+
+      const reader = new FileReader()
+
+      reader.addEventListener(
+        'load',
+        function() {
+          this.showPreview = true
+          this.imagePreview = reader.result
+        }.bind(this),
+        false
+      )
+      if (this.file) {
+        /*
+        Ensure the file is an image file.
+      */
+        if (/\.(jpe?g|png|gif)$/i.test(this.file.name)) {
+          /*
+          Fire the readAsDataURL method which will read the file in and
+          upon completion fire a 'load' event which we will listen to and
+          display the image in the preview.
+        */
+          reader.readAsDataURL(this.file)
+        }
+      }
     },
     addNewCategory() {
       const userId = localStorage.getItem('userId')
@@ -96,6 +123,13 @@ export default {
                     @change="handleFileUpload"
                   />
                 </div>
+                <div class="img_product_wrap">
+                  <img
+                    v-show="showPreview"
+                    :src="imagePreview"
+                    class="img_product"
+                  />
+                </div>
               </div>
             </template>
           </div>
@@ -156,5 +190,14 @@ export default {
     justify-content: space-between;
     width: 250px;
   }
+}
+.img_product_wrap {
+  width: 120px;
+  height: 120px;
+}
+.img_product {
+  border: 1px solid rgba(161, 159, 176, 0.2);
+  border-radius: 12px;
+  object-fit: cover;
 }
 </style>

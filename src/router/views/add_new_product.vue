@@ -29,6 +29,42 @@ export default {
       for (var i = 0; i < uploadedFiles.length; i++) {
         this.files.push(uploadedFiles[i])
       }
+      this.getImagePreviews()
+    },
+    getImagePreviews() {
+      /*
+    Iterate over all of the files and generate an image preview for each one.
+  */
+      for (let i = 0; i < this.files.length; i++) {
+        /*
+      Ensure the file is an image file
+    */
+        if (/\.(jpe?g|png|gif)$/i.test(this.files[i].name)) {
+          /*
+        Create a new FileReader object
+      */
+          const reader = new FileReader()
+
+          /*
+        Add an event listener for when the file has been loaded
+        to update the src on the file preview.
+      */
+          reader.addEventListener(
+            'load',
+            function() {
+              this.$refs['image' + parseInt(i)][0].src = reader.result
+            }.bind(this),
+            false
+          )
+
+          /*
+        Read the data for the file in through the reader. When it has
+        been loaded, we listen to the event propagated and set the image
+        src to what was loaded from the reader.
+      */
+          reader.readAsDataURL(this.files[i])
+        }
+      }
     },
 
     /*
@@ -49,7 +85,7 @@ export default {
       formData.append('price', this.price)
       formData.append('description', this.description)
       formData.append('id', userId)
-      formData.append('images', this.files)
+      formData.append('images', JSON.stringify(this.files))
 
       axios
         .post('http://127.0.0.1:8000/api/products/', formData)
@@ -120,17 +156,7 @@ export default {
                   <div class="btn">
                     <button @click="addFiles">Добавить</button>
                   </div>
-                  <div class="large-12 medium-12 small-12 cell">
-                    <div
-                      v-for="(file, key) in files"
-                      :key="file.key"
-                      class="file-listing"
-                      >{{ file.name }}
-                      <span class="remove-file" @click="removeFile(key)"
-                        >Remove</span
-                      ></div
-                    >
-                  </div>
+
                   <input
                     id="files"
                     ref="files"
@@ -138,6 +164,17 @@ export default {
                     multiple
                     @change="handleFilesUpload"
                   />
+                </div>
+                <div class="img_wrap_wrap">
+                  <div
+                    v-for="(file, key) in files"
+                    :key="file.key"
+                    class="img_product_wrap"
+                  >
+                    <img :ref="'image' + parseInt(key)" class="img_product" />
+                    <!-- <span class="remove-file" @click="removeFile(key)"
+                      >Remove</span -->
+                  </div>
                 </div>
               </div>
             </template>
@@ -249,5 +286,19 @@ span.remove-file {
   float: right;
   color: red;
   cursor: pointer;
+}
+.img_product_wrap {
+  width: 112px;
+  height: 112px;
+  margin-top: 10px;
+  margin-right: 15px;
+}
+.img_product {
+  border: 1px solid rgba(161, 159, 176, 0.2);
+  border-radius: 12px;
+  object-fit: cover;
+}
+.img_wrap_wrap {
+  display: flex;
 }
 </style>
