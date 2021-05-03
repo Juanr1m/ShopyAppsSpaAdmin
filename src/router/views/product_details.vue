@@ -251,10 +251,10 @@ export default {
 }
 .input_txt {
   display: inline-box;
-  margin-bottom: 5px;
+  margin-bottom: 12px;
   margin-left: 5px;
-  font-size: 14px;
-  color: #58585c;
+  font-size: 16px;
+  color: #000;
 }
 .input_price {
   width: 120px;

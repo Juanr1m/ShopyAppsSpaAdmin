@@ -61,6 +61,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.x",
     "cross-env": "7.0.x",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "6.8.x",
     "eslint-plugin-import": "2.20.x",
     "eslint-plugin-node": "11.0.x",
@@ -91,5 +92,10 @@
   "engines": {
     "node": ">=10.13.3",
     "yarn": ">=1.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
