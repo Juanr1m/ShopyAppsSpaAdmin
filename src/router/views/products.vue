@@ -262,6 +262,7 @@ export default {
 }
 .tab-pane {
   height: 65vh;
+  padding-bottom: 20px;
   overflow-y: auto;
 }
 </style>
