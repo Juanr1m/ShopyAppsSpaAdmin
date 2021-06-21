@@ -3,6 +3,7 @@ import appConfig from '@src/app.config'
 import axios from 'axios'
 import Menu from '@layouts/menu.vue'
 import Header from '@layouts/header.vue'
+import { toast } from 'bulma-toast'
 export default {
   page: {
     title: 'Редактировать',
@@ -40,9 +41,22 @@ export default {
         .catch((error) => console.log(error))
     },
     deleteCategory() {
+      const token = localStorage.getItem('token')
       axios
-        .delete(this.endpoint)
-        .then(this.$$router.push('/home'))
+        .delete(this.endpoint, {
+          headers: { Authorization: 'Token ' + token },
+        })
+        .then(
+          this.$router.push('/home'),
+          toast({
+            message: 'Категория удалена',
+            type: 'toast_dng',
+            dismissible: true,
+            pauseOnHover: true,
+            duration: 2000,
+            position: 'bottom-right',
+          })
+        )
         .catch((error) => console.log(error))
     },
   },
@@ -69,7 +83,7 @@ export default {
               </div></div
             >
             <div class="header_btn_wrap">
-              <!-- <a class="btn delete_btn" @click="deleteCategory">Удалить</a> -->
+              <a class="btn delete_btn" @click="deleteCategory">Удалить</a>
               <button class="btn save_btn" @click="addNewCategory">
                 Сохранить
               </button>

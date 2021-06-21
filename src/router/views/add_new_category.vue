@@ -61,6 +61,7 @@ export default {
       axios
         .post('http://127.0.0.1:8000/api/categories/', formData)
         .then(
+          this.$router.push('/home'),
           toast({
             message: 'Категория добавлена',
             type: 'toast_success',

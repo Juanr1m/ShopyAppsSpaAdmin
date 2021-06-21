@@ -166,4 +166,12 @@ button {
   background-color: #4bb543;
   border-radius: 10px;
 }
+
+.toast_dng {
+  padding: 25px 32px;
+  font-size: 18px;
+  color: white;
+  background-color: #df4759;
+  border-radius: 10px;
+}
 </style>
