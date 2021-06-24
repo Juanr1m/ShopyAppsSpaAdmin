@@ -1,6 +1,6 @@
 <script>
 import appConfig from '@src/app.config'
-// import axios from 'axios'
+import axios from 'axios'
 import Menu from '@layouts/menu.vue'
 import Header from '@layouts/header.vue'
 export default {
@@ -9,6 +9,47 @@ export default {
     meta: [{ name: 'description', content: appConfig.description }],
   },
   components: { Header, Menu },
+  data() {
+    return {
+      orders: null,
+
+      isActiveTab: true,
+      isAllTab: false,
+
+      isLoading: false,
+      isDropdown: false,
+    }
+  },
+  methods: {
+    async getOrders() {
+      this.isLoading = true
+      const userId = localStorage.getItem('userId')
+      await axios
+        .get('http://127.0.0.1:8000/api/users/' + `${userId}/` + 'products/')
+        .then((response) => (this.products = response.data))
+
+      this.isLoading = false
+    },
+    toggleActiveOrders: function() {
+      if (this.isAllTab) {
+        this.isActiveTab = !this.isActiveTab
+        this.isAllTab = false
+      }
+    },
+    toggleAllOrders: function() {
+      if (this.isActiveTab) {
+        this.isActiveTab = !this.isActiveTab
+        this.isAllTab = true
+      }
+    },
+    dropdown: function() {
+      if (!this.isDropdown) {
+        this.isDropdown = true
+      } else {
+        this.isDropdown = false
+      }
+    },
+  },
 }
 </script>
 
@@ -34,8 +75,8 @@ export default {
                   role="tab"
                   aria-controls="nav-home"
                   aria-selected="true"
-                  :class="{ active: isActiveProduct }"
-                  @click="toggleProduct"
+                  :class="{ active: isActiveTab }"
+                  @click=";[toggleActiveOrders()]"
                   >Активные</button
                 >
                 <button
@@ -47,10 +88,28 @@ export default {
                   role="tab"
                   aria-controls="nav-profile"
                   aria-selected="false"
-                  :class="{ active: isActiveCategory }"
-                  @click=";[toggleCategory(), getCategories()]"
+                  :class="{ active: isAllTab }"
+                  @click=";[toggleAllOrders()]"
                   >Все</button
                 >
+              </div>
+              <div class="dropdown">
+                <button
+                  id="dropdownMenuButton"
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  @click="dropDown"
+                >
+                  Dropdown button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
               </div>
             </nav>
             <div id="nav-tabContent" class="tab-content">
