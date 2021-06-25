@@ -59,7 +59,7 @@ export default {
       <div class="form_box_titles">
         <div class="form_box_titles_text">Создай свой мобильный магазин</div>
         <div class="signup_btn">
-          <RouterLink to="/login" class="sign_up_txt"
+          <RouterLink to="/" class="sign_up_txt"
             >Есть аккаунт? Войти
           </RouterLink>
           <div class="sign_up_icn">

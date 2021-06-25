@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       category: null,
+      title: '',
 
       file: '',
     }
@@ -37,6 +38,8 @@ export default {
       axios(this.endpoint)
         .then((response) => {
           this.category = response.data
+          this.title = this.category.title
+          this.file = this.category.image.file
         })
         .catch((error) => console.log(error))
     },
@@ -58,6 +61,32 @@ export default {
           })
         )
         .catch((error) => console.log(error))
+    },
+    editCategory() {
+      const token = localStorage.getItem('token')
+      const userId = localStorage.getItem('userId')
+      const formData = new FormData()
+
+      formData.append('title', this.title)
+      formData.append('image', this.file)
+      formData.append('id', userId)
+
+      axios
+        .put(this.endpoint, formData, {
+          headers: { Authorization: 'Token ' + token },
+        })
+        .then(
+          this.$router.push('/home'),
+          toast({
+            message: 'Категория изменена',
+            type: 'toast_success',
+            dismissible: true,
+            pauseOnHover: true,
+            duration: 2000,
+            position: 'bottom-right',
+          })
+        )
+        .catch((error) => console.warn(error))
     },
   },
 }
@@ -84,7 +113,7 @@ export default {
             >
             <div class="header_btn_wrap">
               <a class="btn delete_btn" @click="deleteCategory">Удалить</a>
-              <button class="btn save_btn" @click="addNewCategory">
+              <button class="btn save_btn" @click="editCategory">
                 Сохранить
               </button>
             </div>
@@ -93,7 +122,7 @@ export default {
             <div class="date_created">{{ category.date_created }}</div>
             <div class="input_title">
               <div class="input_txt">Название категории*</div>
-              <input :value="category.title" type="text" maxlength="100"
+              <input v-model="title" type="text" maxlength="100"
             /></div>
             <div class="input_media">
               <div class="input_media_wrap">
