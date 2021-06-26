@@ -99,7 +99,7 @@ button {
 }
 .main_screen {
   padding: 50px;
-  padding-top: 40px;
+  padding-top: 20px;
 }
 .main_screen_title {
   padding-bottom: 15px;

@@ -93,23 +93,19 @@ export default {
                   >Все</button
                 >
               </div>
-              <div class="dropdown">
-                <button
-                  id="dropdownMenuButton"
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  @click="dropDown"
+              <div>
+                <b-dropdown
+                  id="dropdown-1"
+                  text="Dropdown Button"
+                  class="m-md-2"
                 >
-                  Dropdown button
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
+                  <b-dropdown-item>First Action</b-dropdown-item>
+                  <b-dropdown-item>Second Action</b-dropdown-item>
+                  <b-dropdown-item>Third Action</b-dropdown-item>
+                  <b-dropdown-divider></b-dropdown-divider>
+                  <b-dropdown-item active>Active action</b-dropdown-item>
+                  <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+                </b-dropdown>
               </div>
             </nav>
             <div id="nav-tabContent" class="tab-content">
