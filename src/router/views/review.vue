@@ -64,17 +64,49 @@ export default {
                   no-nav-style
                 >
                   <b-tab title="Сегодня" active>
-                    <BarChart :chartdata="chartData" :options="chartOptions"
-                  /></b-tab>
+                    <BarChart :chartdata="chartData" :options="chartOptions"/>
+                    <div class="review_info_wrap">
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div> </div
+                  ></b-tab>
                   <b-tab title="Неделя"
-                    ><LineChart :chartdata="chartData" :options="chartOptions"
-                  /></b-tab>
+                    ><LineChart
+                      :chartdata="chartData"
+                      :options="chartOptions"
+                    />
+                    <div class="review_info_wrap">
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div>
+                    </div>
+                  </b-tab>
                   <b-tab title="Месяц"
-                    ><LineChart :chartdata="chartData" :options="chartOptions"
-                  /></b-tab>
+                    ><LineChart
+                      :chartdata="chartData"
+                      :options="chartOptions"
+                    />
+                    <div class="review_info_wrap">
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div>
+                    </div>
+                  </b-tab>
                   <b-tab title="Всегда"
-                    ><LineChart :chartdata="chartData" :options="chartOptions"
-                  /></b-tab>
+                    ><LineChart
+                      :chartdata="chartData"
+                      :options="chartOptions"
+                    />
+                    <div class="review_info_wrap">
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div>
+                      <div class="review_info_block"></div>
+                    </div>
+                  </b-tab>
                 </b-tabs>
               </b-card>
             </div>
@@ -94,7 +126,6 @@ export default {
 }
 .orders_active_tab_btn {
   padding: 8px 16px;
-  font-size: 15px;
   color: #fff;
   background-color: $primary-color;
   border-radius: 8px;
@@ -106,5 +137,19 @@ export default {
   color: $color-text;
   background-color: #eaeaef;
   border-radius: 8px;
+}
+.review_info_wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 16px;
+  width: 100%;
+}
+.review_info_block {
+  min-height: 100px;
+  padding: 16px 12px;
+  background: #fff;
+  border-top: 1px solid #e7e7eb;
+  border-right: 1px solid #e7e7eb;
+  border-bottom: 1px solid #e7e7eb;
 }
 </style>

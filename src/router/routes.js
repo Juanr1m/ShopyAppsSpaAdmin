@@ -136,7 +136,12 @@ export default [
     component: () => lazyLoadView(import('@views/category_details.vue')),
     props: true,
   },
-
+  {
+    path: '/order/:endpoint',
+    name: 'order-details',
+    component: () => lazyLoadView(import('@views/order_details.vue')),
+    props: true,
+  },
   {
     path: '/404',
     name: '404',

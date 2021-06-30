@@ -20,13 +20,16 @@ export default {
       isDropdown: false,
     }
   },
+  created() {
+    this.getOrders()
+  },
   methods: {
     async getOrders() {
       this.isLoading = true
       const userId = localStorage.getItem('userId')
       await axios
-        .get('http://127.0.0.1:8000/api/users/' + `${userId}/` + 'products/')
-        .then((response) => (this.products = response.data))
+        .get('http://127.0.0.1:8000/api/users/' + `${userId}/` + 'orders/')
+        .then((response) => (this.orders = response.data))
 
       this.isLoading = false
     },
@@ -40,13 +43,6 @@ export default {
       if (this.isActiveTab) {
         this.isActiveTab = !this.isActiveTab
         this.isAllTab = true
-      }
-    },
-    dropdown: function() {
-      if (!this.isDropdown) {
-        this.isDropdown = true
-      } else {
-        this.isDropdown = false
       }
     },
   },
@@ -94,14 +90,11 @@ export default {
                 >
               </div>
               <div>
-                <b-dropdown
-                  id="dropdown-1"
-                  text="Dropdown Button"
-                  class="m-md-2"
-                >
-                  <b-dropdown-item>First Action</b-dropdown-item>
-                  <b-dropdown-item>Second Action</b-dropdown-item>
-                  <b-dropdown-item>Third Action</b-dropdown-item>
+                <b-dropdown id="dropdown-1" text="Статус" class="m-md-2">
+                  <b-dropdown-item>Новый</b-dropdown-item>
+                  <b-dropdown-item>В работе</b-dropdown-item>
+                  <b-dropdown-item>Выполнен</b-dropdown-item>
+                  <b-dropdown-item>Отказ</b-dropdown-item>
                   <b-dropdown-divider></b-dropdown-divider>
                   <b-dropdown-item active>Active action</b-dropdown-item>
                   <b-dropdown-item disabled>Disabled action</b-dropdown-item>
@@ -114,40 +107,31 @@ export default {
                 class="tab-pane fade "
                 role="tabpanel"
                 aria-labelledby="nav-home-tab"
-                :class="{ active: isActiveProduct, show: isActiveProduct }"
+                :class="{ active: isActiveTab, show: isActiveTab }"
               >
                 <div class="info_bar">
-                  <div class="space"></div>
-                  <div class="span col-3">Название</div>
-                  <div class="span col-2">Категория</div>
-                  <div class="span">Цена</div>
+                  <div class="span col-2">Номер заказа</div>
+                  <div class="span col-2">Данные клиента</div>
+                  <div class="span col-2">Дата</div>
+                  <div class="span col-2">Сумма платежа</div>
+                  <div class="span col-2">Статус</div>
+                  <div class="span col-2">Оплата</div>
                 </div>
                 <div v-if="isLoading" class="lds-ring"
                   ><div></div><div></div><div></div><div></div
                 ></div>
                 <RouterLink
-                  v-for="product in products"
-                  :key="product.title"
+                  v-for="order in orders"
+                  :key="order.url"
                   class="item_block"
                   :to="{
-                    name: 'product-details',
-                    params: { endpoint: product.url },
+                    name: 'order-details',
+                    params: { endpoint: order.url },
                   }"
                 >
-                  <div class="item_wrap">
-                    <div class="item_img"
-                      ><img
-                        :src="
-                          'http://127.0.0.1:8000' +
-                            product.image_cover.image_small
-                        "
-                    /></div>
-                    <div class="item_title col-3">{{ product.title }}</div>
-                    <div class="item_category col-2">{{
-                      product.category
-                    }}</div>
-                    <div class="item_price">{{ product.price }} руб.</div>
-                  </div>
+                  <div class="item_title col-3">{{ order.url }}</div>
+                  <div class="item_category col-2">{{ order.address }}</div>
+                  <div class="item_price">{{ order.total_paid }} руб.</div>
                 </RouterLink>
               </div>
               <div
@@ -155,7 +139,7 @@ export default {
                 class="tab-pane fade"
                 role="tabpanel"
                 aria-labelledby="nav-profile-tab"
-                :class="{ active: isActiveCategory, show: isActiveCategory }"
+                :class="{ active: isAllTab, show: isAllTab }"
               >
                 <div class="info_bar">
                   <div class="space"></div>
@@ -165,7 +149,7 @@ export default {
                 <div v-if="isLoading" class="lds-ring"
                   ><div></div><div></div><div></div><div></div
                 ></div>
-                <RouterLink
+                <!-- <RouterLink
                   v-for="category in categories"
                   :key="category.title"
                   class="item_block"
@@ -183,7 +167,7 @@ export default {
                       >{{ category.products.length }} шт.</div
                     >
                   </div>
-                </RouterLink>
+                </RouterLink> -->
               </div>
             </div>
           </div>
@@ -238,14 +222,7 @@ export default {
   background-color: $primary-color;
   border-radius: 20px;
 }
-.add_btn:visited {
-  color: white;
-  background-color: $primary-color;
-}
-.add_btn:hover {
-  color: white;
-  background-color: #153769;
-}
+
 .item_wrap {
   display: flex;
   align-items: center;
@@ -258,14 +235,6 @@ export default {
   border-bottom: 1px solid transparent;
 }
 
-.item_img {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-  img {
-    border-radius: 8px;
-  }
-}
 .item_title {
   font-size: 15px;
 }
