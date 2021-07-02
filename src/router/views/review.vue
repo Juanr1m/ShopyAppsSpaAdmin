@@ -13,6 +13,10 @@ export default {
   components: { Header, Menu, BarChart, LineChart },
   data() {
     return {
+      today: true,
+      week: false,
+      month: false,
+      all: false,
       chartData: {
         labels: [
           'January',
@@ -30,16 +34,79 @@ export default {
         ],
         datasets: [
           {
-            label: 'Data One',
+            borderColor: '#0057d6',
+            backgroundColor: '#0057d6',
+            pointBackgroundColor: '#77b7cd',
+            pointRadius: 4,
             data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
           },
         ],
       },
       options: {
+        scales: {
+          yAxes: [
+            {
+              display: true,
+              ticks: {
+                precision: 2, // точность округления значений по оси y
+                maxTicksLimit: 4, // максимальное количество значений (и рёбер сетки) по оси y
+              },
+            },
+          ],
+          xAxes: [
+            {
+              display: true,
+              ticks: {
+                maxTicksLimit: 5, // максимальное количество значений (и рёбер сетки) по оси x
+              },
+            },
+          ],
+        },
         responsive: true,
         maintainAspectRatio: false,
+        legend: {
+          display: false,
+        },
       },
     }
+  },
+  methods: {
+    toggleToday: function() {
+      if (this.today === false) {
+        this.week = false
+        this.month = false
+        this.all = false
+
+        this.today = true
+      }
+    },
+    toggleWeek: function() {
+      if (this.week === false) {
+        this.week = true
+        this.month = false
+        this.all = false
+
+        this.today = false
+      }
+    },
+    toggleMonth: function() {
+      if (this.month === false) {
+        this.week = false
+        this.month = true
+        this.all = false
+
+        this.today = false
+      }
+    },
+    toggleAll: function() {
+      if (this.all === false) {
+        this.week = false
+        this.month = false
+        this.all = true
+
+        this.today = false
+      }
+    },
   },
 }
 </script>
@@ -55,60 +122,207 @@ export default {
             Обзор
           </div>
           <div class="row">
-            <div>
-              <b-card no-body>
-                <b-tabs
-                  pills
-                  active-nav-item-class="orders_active_tab_btn"
-                  nav-item-class="orders_tab_btn"
-                  no-nav-style
-                >
-                  <b-tab title="Сегодня" active>
-                    <BarChart :chartdata="chartData" :options="chartOptions"/>
-                    <div class="review_info_wrap">
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div> </div
-                  ></b-tab>
-                  <b-tab title="Неделя"
-                    ><LineChart
-                      :chartdata="chartData"
-                      :options="chartOptions"
-                    />
-                    <div class="review_info_wrap">
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div>
+            <div class="btns_wrap">
+              <button
+                class="orders_tab_btn"
+                :class="{ activeReviewTab: today }"
+                @click="toggleToday"
+                >Сегодня</button
+              >
+              <button
+                class="orders_tab_btn"
+                :class="{ activeReviewTab: week }"
+                @click="toggleWeek"
+                >Неделя</button
+              >
+              <button
+                class="orders_tab_btn"
+                :class="{ activeReviewTab: month }"
+                @click="toggleMonth"
+                >Месяц</button
+              >
+              <button
+                class="orders_tab_btn"
+                :class="{ activeReviewTab: all }"
+                @click="toggleAll"
+                >Всегда</button
+              >
+            </div>
+            <div v-if="today" class="tab_item">
+              <div class="chart_wrapper"
+                ><BarChart :chartdata="chartData" :options="chartOptions"
+              /></div>
+
+              <div class="review_info_wrap">
+                <div class="review_info_block">
+                  <div class="review_info_block_title">
+                    <div class="review_info_block_icn">
+                      <img src="@assets/customers.svg" />
                     </div>
-                  </b-tab>
-                  <b-tab title="Месяц"
-                    ><LineChart
-                      :chartdata="chartData"
-                      :options="chartOptions"
-                    />
-                    <div class="review_info_wrap">
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div>
+                    <div class="review_info_block_txt">
+                      Пользователи
                     </div>
-                  </b-tab>
-                  <b-tab title="Всегда"
-                    ><LineChart
-                      :chartdata="chartData"
-                      :options="chartOptions"
-                    />
-                    <div class="review_info_wrap">
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div>
-                      <div class="review_info_block"></div>
+                  </div>
+                  <div class="review_info_block_body">
+                    <div class="review_info_block_item">
+                      25
                     </div>
-                  </b-tab>
-                </b-tabs>
-              </b-card>
+                    <div class="review_info_block_diff_more">
+                      +5
+                    </div>
+                  </div>
+                </div>
+                <div class="review_info_block">
+                  <div class="review_info_block_title">
+                    <div class="review_info_block_icn">
+                      <img src="@assets/orders.svg" />
+                    </div>
+                    <div class="review_info_block_txt">
+                      Заказов
+                    </div>
+                  </div>
+                  <div class="review_info_block_body">
+                    <div class="review_info_block_item">
+                      28
+                    </div>
+                    <div class="review_info_block_diff_less">
+                      -2
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-if="week" class="tab_item">
+              <div class="chart_wrapper"
+                ><LineChart :chartdata="chartData" :options="chartOptions"
+              /></div>
+
+              <div class="review_info_wrap">
+                <div class="review_info_block">
+                  <div class="review_info_block_title">
+                    <div class="review_info_block_icn">
+                      <img src="@assets/customers.svg" />
+                    </div>
+                    <div class="review_info_block_txt">
+                      Пользователи
+                    </div>
+                  </div>
+                  <div class="review_info_block_body">
+                    <div class="review_info_block_item">
+                      25
+                    </div>
+                    <div class="review_info_block_diff_more">
+                      +5
+                    </div>
+                  </div>
+                </div>
+                <div class="review_info_block">
+                  <div class="review_info_block_title">
+                    <div class="review_info_block_icn">
+                      <img src="@assets/orders.svg" />
+                    </div>
+                    <div class="review_info_block_txt">
+                      Заказов
+                    </div>
+                  </div>
+                  <div class="review_info_block_body">
+                    <div class="review_info_block_item">
+                      28
+                    </div>
+                    <div class="review_info_block_diff_less">
+                      -2
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-if="month" class="tab_item">
+              <div class="chart_wrapper"
+                ><LineChart :chartdata="chartData" :options="chartOptions"
+              /></div>
+
+              <div class="review_info_wrap">
+                <div class="review_info_block">
+                  <div class="review_info_block_title">
+                    <div class="review_info_block_icn">
+                      <img src="@assets/customers.svg" />
+                    </div>
+                    <div class="review_info_block_txt">
+                      Пользователи
+                    </div>
+                  </div>
+                  <div class="review_info_block_body">
+                    <div class="review_info_block_item">
+                      25
+                    </div>
+                    <div class="review_info_block_diff_more">
+                      +5
+                    </div>
+                  </div>
+                </div>
+                <div class="review_info_block">
+                  <div class="review_info_block_title">
+                    <div class="review_info_block_icn">
+                      <img src="@assets/orders.svg" />
+                    </div>
+                    <div class="review_info_block_txt">
+                      Заказов
+                    </div>
+                  </div>
+                  <div class="review_info_block_body">
+                    <div class="review_info_block_item">
+                      28
+                    </div>
+                    <div class="review_info_block_diff_less">
+                      -2
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-if="all" class="tab_item">
+              <div class="chart_wrapper"
+                ><LineChart :chartdata="chartData" :options="chartOptions"
+              /></div>
+
+              <div class="review_info_wrap">
+                <div class="review_info_block">
+                  <div class="review_info_block_title">
+                    <div class="review_info_block_icn">
+                      <img src="@assets/customers.svg" />
+                    </div>
+                    <div class="review_info_block_txt">
+                      Пользователи
+                    </div>
+                  </div>
+                  <div class="review_info_block_body">
+                    <div class="review_info_block_item">
+                      25
+                    </div>
+                    <div class="review_info_block_diff_more">
+                      +5
+                    </div>
+                  </div>
+                </div>
+                <div class="review_info_block">
+                  <div class="review_info_block_title">
+                    <div class="review_info_block_icn">
+                      <img src="@assets/orders.svg" />
+                    </div>
+                    <div class="review_info_block_txt">
+                      Заказов
+                    </div>
+                  </div>
+                  <div class="review_info_block_body">
+                    <div class="review_info_block_item">
+                      28
+                    </div>
+                    <div class="review_info_block_diff_less">
+                      -2
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -119,13 +333,16 @@ export default {
 
 <style lang="scss">
 @import '@design';
-.tab-pane {
+.btns_wrap {
+  margin-top: 5px;
+}
+.tab_item {
   height: 65vh;
-  padding-bottom: 20px;
   overflow-y: auto;
 }
 .orders_active_tab_btn {
   padding: 8px 16px;
+  margin-right: 15px;
   color: #fff;
   background-color: $primary-color;
   border-radius: 8px;
@@ -138,18 +355,50 @@ export default {
   background-color: #eaeaef;
   border-radius: 8px;
 }
+.activeReviewTab {
+  color: #fff;
+  background-color: $primary-color;
+}
 .review_info_wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 16px;
   width: 100%;
+  margin-top: 20px;
 }
 .review_info_block {
   min-height: 100px;
   padding: 16px 12px;
-  background: #fff;
   border-top: 1px solid #e7e7eb;
   border-right: 1px solid #e7e7eb;
   border-bottom: 1px solid #e7e7eb;
+}
+.review_info_block_icn {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.review_info_block_title {
+  display: flex;
+  align-items: center;
+}
+.review_info_block_txt {
+  color: #676b78;
+}
+.review_info_block_body {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+.review_info_block_item {
+  margin-right: 5px;
+  font-size: 32px;
+}
+.review_info_block_diff_more {
+  color: #3ec0ad;
+}
+.review_info_block_diff_less {
+  color: #ff6955;
 }
 </style>
